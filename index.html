@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>NINE63 MUSIC — A-Class Beats for Artists Who Feel More</title>
+<meta name="description" content="A-class beats for artists. Press play, find the sound that makes you write differently — new jazz, melodic trap, plug, drill, supertrap and more. Browse, listen, license.">
+<meta name="theme-color" content="#000000">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="NINE63 MUSIC">
+<meta property="og:title" content="NINE63 MUSIC — You just found your sound">
+<meta property="og:description" content="A-class beats for artists who feel more. Press play, explore the vault, license the one that makes you write.">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Ccircle cx='32' cy='32' r='30' fill='%23000000'/%3E%3Ccircle cx='32' cy='32' r='15' fill='none' stroke='%231ed760' stroke-width='4'/%3E%3Ccircle cx='32' cy='32' r='5' fill='%231ed760'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300..800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/styles.css">
+</head>
+<body>
+
+<a class="skip-link" href="#app">Skip to content</a>
+
+<header class="site-header" id="site-header">
+  <div class="site-header__inner">
+    <a class="brand" href="#/" aria-label="NINE63 MUSIC home">
+      <span class="brand__disc" aria-hidden="true"></span>
+      <span class="brand__word">NINE63 MUSIC</span>
+    </a>
+
+    <nav class="site-nav" aria-label="Primary">
+      <a href="#/beats">Beats</a>
+      <a href="#/genres">Genres</a>
+      <a href="#/moods">Moods</a>
+      <a href="#/about">About</a>
+    </nav>
+
+    <div class="site-actions">
+      <button class="icon-btn" id="nav-search" aria-label="Search beats">
+        <span class="icon" data-icon="search"></span>
+      </button>
+      <a class="icon-btn" href="#/favorites" aria-label="Your favorites">
+        <span class="icon" data-icon="heart"></span>
+        <span class="badge" id="fav-badge" hidden>0</span>
+      </a>
+      <a class="icon-btn" href="#/cart" aria-label="Your cart">
+        <span class="icon" data-icon="cart"></span>
+        <span class="badge" id="cart-badge" hidden>0</span>
+      </a>
+      <button class="icon-btn nav-burger" id="nav-burger" aria-label="Open menu" aria-expanded="false">
+        <span class="icon" data-icon="menu"></span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<div class="drawer" id="nav-drawer" hidden>
+  <nav class="drawer__nav" aria-label="Menu">
+    <a href="#/beats">Beats</a>
+    <a href="#/genres">Genres</a>
+    <a href="#/moods">Moods</a>
+    <a href="#/collection/new-jazz-x-melodic-trap-x-experimental-trap">New Jazz</a>
+    <a href="#/collection/plug-x-new-wave-x-smooth-trap-x-laid-back">Plug &amp; Chill</a>
+    <a href="#/collection/supertrap-x-darkology-x-lovemusic-x-new-planet">Dark &amp; Heavy</a>
+    <a href="#/collection/uk-drill-x-usa-drill-x-jersey-x-chriaq">Drill</a>
+    <a href="#/licenses">Licenses</a>
+    <a href="#/about">About</a>
+  </nav>
+</div>
+
+<main id="app" tabindex="-1"></main>
+
+<footer class="site-footer">
+  <div class="site-footer__inner">
+    <div class="site-footer__brand">
+      <span class="brand__word">NINE63 MUSIC</span>
+      <p>Beats crafted by <strong>963 Beats</strong> for artists who feel more.</p>
+    </div>
+    <nav class="site-footer__nav" aria-label="Footer">
+      <a href="#/beats">Beats</a>
+      <a href="#/genres">Genres</a>
+      <a href="#/moods">Moods</a>
+      <a href="#/licenses">Licensing</a>
+      <a href="#/favorites">Favorites</a>
+      <a href="#/about">About</a>
+    </nav>
+    <p class="site-footer__note">Press play. See what happens.</p>
+  </div>
+</footer>
+
+<div id="player-root"></div>
+
+<div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
+
+<div class="search-overlay" id="search-overlay" hidden>
+  <div class="search-overlay__panel">
+    <div class="search-overlay__head">
+      <div class="search-overlay__icon" aria-hidden="true"><span class="icon" data-icon="search"></span></div>
+      <input class="search-overlay__input" id="search-input" type="search" placeholder="Search titles, genres, moods, keys, BPM…" autocomplete="off">
+      <button class="icon-btn" id="search-close" aria-label="Close search"><span class="icon" data-icon="close"></span></button>
+    </div>
+    <div class="search-overlay__results" id="search-results" aria-live="polite"></div>
+  </div>
+</div>
+
+<noscript>
+  <div style="max-width:42rem;margin:6rem auto;padding:0 1.5rem;font-family:system-ui,sans-serif;color:#fff">
+    <h1>NINE63 MUSIC</h1>
+    <p>This beat store needs JavaScript to play audio. Enable JavaScript (or use a browser with scripting on) to browse and listen.</p>
+  </div>
+</noscript>
+
+<script src="data/beats.js"></script>
+<script src="data/site.js"></script>
+<script src="assets/js/config.js"></script>
+<script src="assets/js/utils.js"></script>
+<script src="assets/js/icons.js"></script>
+<script src="assets/js/store.js"></script>
+<script src="assets/js/audio.js"></script>
+<script src="assets/js/recs.js"></script>
+<script src="assets/js/components.js"></script>
+<script src="assets/js/player.js"></script>
+<script src="assets/js/router.js"></script>
+<script src="assets/js/pages.js"></script>
+<script src="assets/js/app.js"></script>
+</body>
+</html>

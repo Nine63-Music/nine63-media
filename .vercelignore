@@ -1,0 +1,7 @@
+# Vercel free tier caps static uploads at 100MB — keep the shell tiny.
+# Audio + artwork are served from a free CDN (see README → Deploying).
+Beats/
+tools/
+.git/
+.gitignore
+*.md

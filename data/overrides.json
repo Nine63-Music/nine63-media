@@ -1,0 +1,18 @@
+{
+  "producer": "963 Beats",
+  "beats": {
+    "GLOW": {
+      "genres": ["Supertrap", "Darkology", "Love Music"],
+      "moods": ["Dark", "Cinematic", "Aggressive"],
+      "key": "Fm",
+      "description": "A menacing supertrap banger. Rattling 808s, haunted bells and a bassline built to shake the club. 145 BPM of pure venom."
+    }
+  },
+  "descriptions": {
+    "GROUND RULES": "Gritty, string-laden dark trap. 134 BPM, low-key piano and a hard knock that leaves room for a heavy vocal."
+  },
+  "featured": [
+    "GLOW",
+    "GROUND RULES"
+  ]
+}
