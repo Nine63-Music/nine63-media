@@ -1088,11 +1088,46 @@
     });
 
     const mailLink = app.querySelector('[data-action="mail-order"]');
-    const to = (cfg.contactEmail || "").trim();
-    const subject = encodeURIComponent("Beat order — " + (cfg.brand?.name || "NINE63 MUSIC"));
-    mailLink.href = (to ? "mailto:" + to : "mailto:") + "?subject=" + subject + "&body=" + encodeURIComponent(lastOrder || "");
-    mailLink.addEventListener("click", () => {
-      (window.ACLASS.Components.Toast).show("Opening your email…");
+    const FORMSPREE_URL = "https://formspree.io/f/myzpglqg";
+    mailLink.addEventListener("click", async (e) => {
+      e.preventDefault();
+      if (!lastOrder) return;
+      mailLink.disabled = true;
+      mailLink.textContent = "Sending…";
+      try {
+        var orderItems = items.map(function (it) {
+          if (it.type === "beat") return it.beat.title + " (" + it.license.name + ")";
+          if (it.type === "credits") return it.pack.name;
+          if (it.type === "bundle") return it.bundle.name;
+          return "";
+        }).filter(Boolean).join(", ");
+        var res = await fetch(FORMSPREE_URL, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            _subject: "Beat order — " + (cfg.brand?.name || "NINE63 MUSIC"),
+            name: (app.querySelector("#co-name") || {}).value || "",
+            email: (app.querySelector("#co-email") || {}).value || "",
+            order: lastOrder,
+            items: orderItems,
+            total: Utils.fmtPrice(total)
+          })
+        });
+        if (res.ok) {
+          (window.ACLASS.Components.Toast).show("Order sent! We'll get back to you soon.");
+          mailLink.textContent = "Order sent ✓";
+          mailLink.style.pointerEvents = "none";
+        } else {
+          throw new Error("Formspree " + res.status);
+        }
+      } catch (err) {
+        (window.ACLASS.Components.Toast).show("Couldn't send — copy the summary and email us manually.");
+        mailLink.disabled = false;
+        mailLink.textContent = "Email this to us";
+        var to = (cfg.contactEmail || "").trim();
+        var subject = encodeURIComponent("Beat order — " + (cfg.brand?.name || "NINE63 MUSIC"));
+        window.open((to ? "mailto:" + to : "mailto:") + "?subject=" + subject + "&body=" + encodeURIComponent(lastOrder || ""), "_blank");
+      }
     });
 
     app.querySelector('[data-action="reset-order"]').addEventListener("click", () => {
