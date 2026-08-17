@@ -27,9 +27,8 @@
   /* ---------- Artwork ---------- */
   function imgTag(beat, className, alt) {
     const src = Utils.artSrc(beat);
-    const crossorigin = (Utils.config && Utils.config.assetBase) ? ' crossorigin="anonymous"' : '';
     return (
-      '<img src="' + Utils.escapeHTML(src) + '"' + crossorigin + ' alt="' + Utils.escapeHTML(alt) + '" loading="lazy" decoding="async">'
+      '<img src="' + Utils.escapeHTML(src) + '" alt="' + Utils.escapeHTML(alt) + '" loading="lazy" decoding="async">'
     );
   }
 
