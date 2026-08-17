@@ -12,7 +12,7 @@
        (e.g. https://cdn.jsdelivr.net/gh/USER/nine63-media@latest) when
        audio + artwork are hosted separately so the Vercel deploy stays
        small. Both audio and artwork resolve through Utils.assetUrl. */
-    assetBase: (window.ACLASS_SITE && window.ACLASS_SITE.assetBase) || "",
+    assetBase: "",
 
     /* Order recipient. Used only to build the email link at runtime —
        never rendered anywhere on the page. */
