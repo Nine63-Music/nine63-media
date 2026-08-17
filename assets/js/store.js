@@ -50,6 +50,38 @@
     listeners.push(fn);
   }
 
+  /* ---- Cart item type helpers ---- */
+  function cartType(item) {
+    return item.type || "beat";
+  }
+
+  function cfg() {
+    return window.ACLASS_CONFIG || {};
+  }
+
+  function resolveCart() {
+    var c = cfg();
+    return cart
+      .map(function (item) {
+        var t = cartType(item);
+        if (t === "credits") {
+          var pack = (c.creditPacks || []).find(function (p) { return p.slug === item.packId; });
+          return pack ? { type: "credits", pack: pack } : null;
+        }
+        if (t === "bundle") {
+          var bundle = (c.bundles || []).find(function (b) { return b.slug === item.bundleId; });
+          return bundle ? { type: "bundle", bundle: bundle } : null;
+        }
+        var beat = byId.get(item.id);
+        var license = (c.licenses || []).find(function (l) { return l.slug === item.license; });
+        if (!beat || !license) return null;
+        var out = { type: "beat", beat: beat, license: license };
+        if (item.creditsUsed) out.creditsUsed = item.creditsUsed;
+        return out;
+      })
+      .filter(Boolean);
+  }
+
   const Store = {
     get favorites() {
       return [...favorites].map((id) => byId.get(id)).filter(Boolean);
@@ -65,37 +97,94 @@
       return favorites.has(id);
     },
 
+    /* ---- Cart ---- */
     get cart() {
-      return cart
-        .map((item) => {
-          const beat = byId.get(item.id);
-          const license = (window.ACLASS_CONFIG.licenses || []).find((l) => l.slug === item.license);
-          if (!beat || !license) return null;
-          return { beat, license };
-        })
-        .filter(Boolean);
+      return resolveCart();
     },
     get cartCount() {
       return cart.length;
     },
+
+    /* Beat operations (backwards-compatible with legacy items) */
     addToCart(id, licenseSlug) {
-      cart = cart.filter((i) => !(i.id === id && i.license === licenseSlug));
-      cart.push({ id, license: licenseSlug });
+      cart = cart.filter((i) => cartType(i) !== "beat" || !(i.id === id && i.license === licenseSlug));
+      cart.push({ type: "beat", id: id, license: licenseSlug });
+      write(KEY.cart, cart);
+      emit();
+    },
+    addToCartWithCredits(id, licenseSlug) {
+      cart = cart.filter((i) => cartType(i) !== "beat" || !(i.id === id && i.license === licenseSlug));
+      var creditCost = ((cfg().licenseCredits || {})[licenseSlug]) || 0;
+      cart.push({ type: "beat", id: id, license: licenseSlug, creditsUsed: creditCost });
       write(KEY.cart, cart);
       emit();
     },
     removeFromCart(id, licenseSlug) {
-      cart = cart.filter((i) => !(i.id === id && i.license === licenseSlug));
-      write(KEY.cart, cart);
-      emit();
-    },
-    clearCart() {
-      cart = [];
+      cart = cart.filter((i) => {
+        if (cartType(i) !== "beat") return true;
+        return !(i.id === id && i.license === licenseSlug);
+      });
       write(KEY.cart, cart);
       emit();
     },
     cartHas(id, licenseSlug) {
-      return cart.some((i) => i.id === id && i.license === licenseSlug);
+      return cart.some((i) => cartType(i) === "beat" && i.id === id && i.license === licenseSlug);
+    },
+
+    /* Credit pack operations */
+    addCreditPack(slug) {
+      cart = cart.filter((i) => !(cartType(i) === "credits" && i.packId === slug));
+      cart.push({ type: "credits", packId: slug });
+      write(KEY.cart, cart);
+      emit();
+    },
+    removeCreditPack(slug) {
+      cart = cart.filter((i) => !(cartType(i) === "credits" && i.packId === slug));
+      write(KEY.cart, cart);
+      emit();
+    },
+    creditPackHas(slug) {
+      return cart.some((i) => cartType(i) === "credits" && i.packId === slug);
+    },
+    get creditBalance() {
+      var c = cfg();
+      return cart
+        .filter((i) => cartType(i) === "credits")
+        .reduce(function (sum, i) {
+          var pack = (c.creditPacks || []).find(function (p) { return p.slug === i.packId; });
+          return sum + (pack ? pack.credits : 0);
+        }, 0);
+    },
+    get creditsUsed() {
+      return cart
+        .filter((i) => cartType(i) === "beat" && i.creditsUsed)
+        .reduce(function (sum, i) { return sum + (i.creditsUsed || 0); }, 0);
+    },
+    get creditsRemaining() {
+      return Math.max(0, this.creditBalance - this.creditsUsed);
+    },
+
+    /* Bundle operations */
+    addBundle(slug) {
+      cart = cart.filter((i) => !(cartType(i) === "bundle" && i.bundleId === slug));
+      cart.push({ type: "bundle", bundleId: slug });
+      write(KEY.cart, cart);
+      emit();
+    },
+    removeBundle(slug) {
+      cart = cart.filter((i) => !(cartType(i) === "bundle" && i.bundleId === slug));
+      write(KEY.cart, cart);
+      emit();
+    },
+    bundleHas(slug) {
+      return cart.some((i) => cartType(i) === "bundle" && i.bundleId === slug);
+    },
+
+    /* Clear all cart items */
+    clearCart() {
+      cart = [];
+      write(KEY.cart, cart);
+      emit();
     },
 
     /* Play history: { id: count } */

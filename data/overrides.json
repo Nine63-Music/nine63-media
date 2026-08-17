@@ -6,6 +6,18 @@
       "moods": ["Dark", "Cinematic", "Aggressive"],
       "key": "Fm",
       "description": "A menacing supertrap banger. Rattling 808s, haunted bells and a bassline built to shake the club. 145 BPM of pure venom."
+    },
+    "SUPERSONC": {
+      "status": "sold"
+    },
+    "CARBON": {
+      "status": "sold"
+    },
+    "CORNERS": {
+      "status": "sold"
+    },
+    "SHADOW MOVES": {
+      "status": "sold"
     }
   },
   "descriptions": {
@@ -13,6 +25,9 @@
   },
   "featured": [
     "GLOW",
-    "GROUND RULES"
+    "GROUND RULES",
+    "CORAL REEF",
+    "1 OF 1",
+    "GHOST TRAIN"
   ]
 }

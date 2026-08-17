@@ -88,6 +88,22 @@
     /* Starting price shown on cards (lowest tier). */
     startingPrice: 30,
 
+    /* Credit packs — prepaid discount cards. Buyers purchase credits
+       upfront and apply them to any beat for an instant discount. */
+    creditPacks: [
+      { slug: "5-credits", name: "5 Credits", price: 100, credits: 5, blurb: "Buy 5 credits upfront. Apply one to any beat for $25 off — that's a Basic for just $5." },
+      { slug: "10-credits", name: "10 Credits", price: 180, credits: 10, blurb: "Best value. 10 credits for $180 — each one worth $25. That's 23% off every beat." },
+    ],
+
+    /* How many credits each license tier costs. Set a tier to null to disable credits for it. */
+    licenseCredits: { basic: 1, premium: 2, unlimited: 4, exclusive: 10 },
+
+    /* Bundle deals — multi-beat packages at a discount. */
+    bundles: [
+      { slug: "3-beat-bundle", name: "3-Beat Bundle", price: 75, beats: 3, license: "basic", blurb: "3 Basic licenses for $75 instead of $90. Save $15 — tell us which 3 in the order notes." },
+      { slug: "5-beat-bundle", name: "5-Beat Bundle", price: 110, beats: 5, license: "basic", blurb: "5 Basic licenses for $110 instead of $150. Save $40 — the best deal for bulk." },
+    ],
+
     /* How many seconds of "newest" vs stored date fallbacks behave. */
     freshCount: 8,
     trendingCount: 8,

@@ -5,8 +5,26 @@ window.ACLASS_DATA = {
     "name": "NINE63 MUSIC",
     "producer": "963 Beats"
   },
-  "generatedAt": "2026-08-16T16:42:52.678Z",
+  "generatedAt": "2026-08-17T13:38:38.831Z",
   "folders": [
+    {
+      "slug": "hiphop-x-boombap-x-lofi",
+      "name": "hiphop x boombap x lofi",
+      "displayName": "Hip Hop · Boom Bap · Lo-Fi",
+      "tagline": "Warm samples, dusty drums, head-nod classics. Timeless vibes.",
+      "genres": [
+        "Hiphop",
+        "Boombap",
+        "Lofi"
+      ],
+      "moods": [
+        "Nostalgic",
+        "Chill",
+        "Soulful"
+      ],
+      "accent": "amber",
+      "beatCount": 17
+    },
     {
       "slug": "new-jazz-x-melodic-trap-x-experimental-trap",
       "name": "new jazz x melodic trap x experimental trap",
@@ -85,6 +103,18 @@ window.ACLASS_DATA = {
   ],
   "genres": [
     {
+      "name": "Hiphop",
+      "slug": "hiphop"
+    },
+    {
+      "name": "Boombap",
+      "slug": "boombap"
+    },
+    {
+      "name": "Lofi",
+      "slug": "lofi"
+    },
+    {
       "name": "New Jazz",
       "slug": "new-jazz"
     },
@@ -147,6 +177,18 @@ window.ACLASS_DATA = {
   ],
   "moods": [
     {
+      "name": "Nostalgic",
+      "slug": "nostalgic"
+    },
+    {
+      "name": "Chill",
+      "slug": "chill"
+    },
+    {
+      "name": "Soulful",
+      "slug": "soulful"
+    },
+    {
       "name": "Melodic",
       "slug": "melodic"
     },
@@ -157,10 +199,6 @@ window.ACLASS_DATA = {
     {
       "name": "Experimental",
       "slug": "experimental"
-    },
-    {
-      "name": "Chill",
-      "slug": "chill"
     },
     {
       "name": "Smooth",
@@ -193,6 +231,525 @@ window.ACLASS_DATA = {
   ],
   "beats": [
     {
+      "id": "hiphop-x-boombap-x-lofi--1-of-1",
+      "title": "1 OF 1",
+      "slug": "1-of-1",
+      "file": "Beats/hiphop x boombap x lofi/1 OF 1 I Prod by Astro Blacksmith.mp3",
+      "artwork": null,
+      "bpm": null,
+      "key": null,
+      "year": null,
+      "playCount": 0,
+      "addedAt": "2026-01-25",
+      "collection": "hiphop-x-boombap-x-lofi",
+      "genres": [
+        "hiphop",
+        "boombap",
+        "lofi"
+      ],
+      "moods": [
+        "nostalgic",
+        "chill",
+        "soulful"
+      ],
+      "tags": [
+        "1",
+        "of"
+      ],
+      "producer": "963 Beats",
+      "featured": true,
+      "description": null,
+      "status": null
+    },
+    {
+      "id": "hiphop-x-boombap-x-lofi--a-plus",
+      "title": "A PLUS",
+      "slug": "a-plus",
+      "file": "Beats/hiphop x boombap x lofi/A PLUS I Prod by Astro Blacksmith.mp3",
+      "artwork": null,
+      "bpm": 130,
+      "key": null,
+      "year": 2026,
+      "playCount": 0,
+      "addedAt": "2026-01-10",
+      "collection": "hiphop-x-boombap-x-lofi",
+      "genres": [
+        "hiphop",
+        "boombap",
+        "lofi"
+      ],
+      "moods": [
+        "nostalgic",
+        "chill",
+        "soulful"
+      ],
+      "tags": [
+        "a",
+        "plus"
+      ],
+      "producer": "963 Beats",
+      "featured": false,
+      "description": null,
+      "status": null
+    },
+    {
+      "id": "hiphop-x-boombap-x-lofi--air-con",
+      "title": "AIR CON",
+      "slug": "air-con",
+      "file": "Beats/hiphop x boombap x lofi/AIR CON I Prod by Astro Blacksmith.mp3",
+      "artwork": null,
+      "bpm": 130,
+      "key": "Abm",
+      "year": 2025,
+      "playCount": 1,
+      "addedAt": "2026-01-25",
+      "collection": "hiphop-x-boombap-x-lofi",
+      "genres": [
+        "hiphop",
+        "boombap",
+        "lofi"
+      ],
+      "moods": [
+        "nostalgic",
+        "chill",
+        "soulful"
+      ],
+      "tags": [
+        "air",
+        "con"
+      ],
+      "producer": "963 Beats",
+      "featured": false,
+      "description": null,
+      "status": null
+    },
+    {
+      "id": "hiphop-x-boombap-x-lofi--blue-number",
+      "title": "BLUE NUMBER",
+      "slug": "blue-number",
+      "file": "Beats/hiphop x boombap x lofi/BLUE NUMBER I Prod by Astro Blacksmith.mp3",
+      "artwork": null,
+      "bpm": 90,
+      "key": null,
+      "year": 2025,
+      "playCount": 0,
+      "addedAt": "2025-12-24",
+      "collection": "hiphop-x-boombap-x-lofi",
+      "genres": [
+        "hiphop",
+        "boombap",
+        "lofi"
+      ],
+      "moods": [
+        "nostalgic",
+        "chill",
+        "soulful"
+      ],
+      "tags": [
+        "blue",
+        "number"
+      ],
+      "producer": "963 Beats",
+      "featured": false,
+      "description": null,
+      "status": null
+    },
+    {
+      "id": "hiphop-x-boombap-x-lofi--carbon",
+      "title": "CARBON",
+      "slug": "carbon",
+      "file": "Beats/hiphop x boombap x lofi/CARBON I Prod by Astro Blacksmith.mp3",
+      "artwork": null,
+      "bpm": 130,
+      "key": null,
+      "year": 2026,
+      "playCount": 0,
+      "addedAt": "2026-01-16",
+      "collection": "hiphop-x-boombap-x-lofi",
+      "genres": [
+        "hiphop",
+        "boombap",
+        "lofi"
+      ],
+      "moods": [
+        "nostalgic",
+        "chill",
+        "soulful"
+      ],
+      "tags": [
+        "carbon"
+      ],
+      "producer": "963 Beats",
+      "featured": false,
+      "description": null,
+      "status": "sold"
+    },
+    {
+      "id": "hiphop-x-boombap-x-lofi--coral-reef",
+      "title": "CORAL REEF",
+      "slug": "coral-reef",
+      "file": "Beats/hiphop x boombap x lofi/CORAL REEF I Prod by Astro Blacksmith.mp3",
+      "artwork": null,
+      "bpm": 130,
+      "key": null,
+      "year": 2025,
+      "playCount": 0,
+      "addedAt": "2025-12-03",
+      "collection": "hiphop-x-boombap-x-lofi",
+      "genres": [
+        "hiphop",
+        "boombap",
+        "lofi"
+      ],
+      "moods": [
+        "nostalgic",
+        "chill",
+        "soulful"
+      ],
+      "tags": [
+        "coral",
+        "reef"
+      ],
+      "producer": "963 Beats",
+      "featured": true,
+      "description": null,
+      "status": null
+    },
+    {
+      "id": "hiphop-x-boombap-x-lofi--corners",
+      "title": "CORNERS",
+      "slug": "corners",
+      "file": "Beats/hiphop x boombap x lofi/CORNERS I Prod by Astro Blacksmith.mp3",
+      "artwork": null,
+      "bpm": 83,
+      "key": null,
+      "year": 2025,
+      "playCount": 0,
+      "addedAt": "2025-12-25",
+      "collection": "hiphop-x-boombap-x-lofi",
+      "genres": [
+        "hiphop",
+        "boombap",
+        "lofi"
+      ],
+      "moods": [
+        "nostalgic",
+        "chill",
+        "soulful"
+      ],
+      "tags": [
+        "corners"
+      ],
+      "producer": "963 Beats",
+      "featured": false,
+      "description": null,
+      "status": "sold"
+    },
+    {
+      "id": "hiphop-x-boombap-x-lofi--everlasting",
+      "title": "EVERLASTING",
+      "slug": "everlasting",
+      "file": "Beats/hiphop x boombap x lofi/EVERLASTING I Prod by Astro Blacksmith.mp3",
+      "artwork": null,
+      "bpm": 130,
+      "key": "Am",
+      "year": 2025,
+      "playCount": 1,
+      "addedAt": "2026-01-25",
+      "collection": "hiphop-x-boombap-x-lofi",
+      "genres": [
+        "hiphop",
+        "boombap",
+        "lofi"
+      ],
+      "moods": [
+        "nostalgic",
+        "chill",
+        "soulful"
+      ],
+      "tags": [
+        "everlasting"
+      ],
+      "producer": "963 Beats",
+      "featured": false,
+      "description": null,
+      "status": null
+    },
+    {
+      "id": "hiphop-x-boombap-x-lofi--frontline",
+      "title": "FRONTLINE",
+      "slug": "frontline",
+      "file": "Beats/hiphop x boombap x lofi/FRONTLINE I Prod by Astro Blacksmith.mp3",
+      "artwork": null,
+      "bpm": 85,
+      "key": "Bm",
+      "year": 2025,
+      "playCount": 1,
+      "addedAt": "2026-01-25",
+      "collection": "hiphop-x-boombap-x-lofi",
+      "genres": [
+        "hiphop",
+        "boombap",
+        "lofi"
+      ],
+      "moods": [
+        "nostalgic",
+        "chill",
+        "soulful"
+      ],
+      "tags": [
+        "frontline"
+      ],
+      "producer": "963 Beats",
+      "featured": false,
+      "description": null,
+      "status": null
+    },
+    {
+      "id": "hiphop-x-boombap-x-lofi--ghost-train",
+      "title": "GHOST TRAIN",
+      "slug": "ghost-train",
+      "file": "Beats/hiphop x boombap x lofi/GHOST TRAIN I Prod by Astro Blacksmith.mp3",
+      "artwork": null,
+      "bpm": 130,
+      "key": null,
+      "year": 2025,
+      "playCount": 0,
+      "addedAt": "2025-12-03",
+      "collection": "hiphop-x-boombap-x-lofi",
+      "genres": [
+        "hiphop",
+        "boombap",
+        "lofi"
+      ],
+      "moods": [
+        "nostalgic",
+        "chill",
+        "soulful"
+      ],
+      "tags": [
+        "ghost",
+        "train"
+      ],
+      "producer": "963 Beats",
+      "featured": true,
+      "description": null,
+      "status": null
+    },
+    {
+      "id": "hiphop-x-boombap-x-lofi--pineapple-express",
+      "title": "PINEAPPLE EXPRESS",
+      "slug": "pineapple-express",
+      "file": "Beats/hiphop x boombap x lofi/PINEAPPLE EXPRESS I Prod by Astro Blacksmith.mp3",
+      "artwork": null,
+      "bpm": 83,
+      "key": "Am",
+      "year": 2026,
+      "playCount": 1,
+      "addedAt": "2026-01-25",
+      "collection": "hiphop-x-boombap-x-lofi",
+      "genres": [
+        "hiphop",
+        "boombap",
+        "lofi"
+      ],
+      "moods": [
+        "nostalgic",
+        "chill",
+        "soulful"
+      ],
+      "tags": [
+        "pineapple",
+        "express"
+      ],
+      "producer": "963 Beats",
+      "featured": false,
+      "description": null,
+      "status": null
+    },
+    {
+      "id": "hiphop-x-boombap-x-lofi--shadow-moves",
+      "title": "SHADOW MOVES",
+      "slug": "shadow-moves",
+      "file": "Beats/hiphop x boombap x lofi/SHADOW MOVES I Prod by Astro Blacksmith.mp3",
+      "artwork": null,
+      "bpm": 82,
+      "key": null,
+      "year": 2025,
+      "playCount": 0,
+      "addedAt": "2025-10-21",
+      "collection": "hiphop-x-boombap-x-lofi",
+      "genres": [
+        "hiphop",
+        "boombap",
+        "lofi"
+      ],
+      "moods": [
+        "nostalgic",
+        "chill",
+        "soulful"
+      ],
+      "tags": [
+        "shadow",
+        "moves"
+      ],
+      "producer": "963 Beats",
+      "featured": false,
+      "description": null,
+      "status": "sold"
+    },
+    {
+      "id": "hiphop-x-boombap-x-lofi--supersonc",
+      "title": "SUPERSONC",
+      "slug": "supersonc",
+      "file": "Beats/hiphop x boombap x lofi/SUPERSONC I Prod by Astro Blacksmith.mp3",
+      "artwork": null,
+      "bpm": 88,
+      "key": null,
+      "year": 2026,
+      "playCount": 0,
+      "addedAt": "2026-02-02",
+      "collection": "hiphop-x-boombap-x-lofi",
+      "genres": [
+        "hiphop",
+        "boombap",
+        "lofi"
+      ],
+      "moods": [
+        "nostalgic",
+        "chill",
+        "soulful"
+      ],
+      "tags": [
+        "supersonc"
+      ],
+      "producer": "963 Beats",
+      "featured": false,
+      "description": null,
+      "status": "sold"
+    },
+    {
+      "id": "hiphop-x-boombap-x-lofi--train",
+      "title": "TRAIN",
+      "slug": "train",
+      "file": "Beats/hiphop x boombap x lofi/TRAIN I Prod by Astro Blacksmith.mp3",
+      "artwork": null,
+      "bpm": 89,
+      "key": null,
+      "year": 2026,
+      "playCount": 0,
+      "addedAt": "2026-01-27",
+      "collection": "hiphop-x-boombap-x-lofi",
+      "genres": [
+        "hiphop",
+        "boombap",
+        "lofi"
+      ],
+      "moods": [
+        "nostalgic",
+        "chill",
+        "soulful"
+      ],
+      "tags": [
+        "train"
+      ],
+      "producer": "963 Beats",
+      "featured": false,
+      "description": null,
+      "status": null
+    },
+    {
+      "id": "hiphop-x-boombap-x-lofi--truth",
+      "title": "TRUTH",
+      "slug": "truth",
+      "file": "Beats/hiphop x boombap x lofi/TRUTH I Prod by Astro Blacksmith.mp3",
+      "artwork": null,
+      "bpm": 84,
+      "key": null,
+      "year": 2026,
+      "playCount": 0,
+      "addedAt": "2026-01-29",
+      "collection": "hiphop-x-boombap-x-lofi",
+      "genres": [
+        "hiphop",
+        "boombap",
+        "lofi"
+      ],
+      "moods": [
+        "nostalgic",
+        "chill",
+        "soulful"
+      ],
+      "tags": [
+        "truth"
+      ],
+      "producer": "963 Beats",
+      "featured": false,
+      "description": null,
+      "status": null
+    },
+    {
+      "id": "hiphop-x-boombap-x-lofi--volume",
+      "title": "VOLUME",
+      "slug": "volume",
+      "file": "Beats/hiphop x boombap x lofi/VOLUME I Prod by Astro Blacksmith.mp3",
+      "artwork": null,
+      "bpm": 86,
+      "key": "Em",
+      "year": 2026,
+      "playCount": 1,
+      "addedAt": "2026-01-25",
+      "collection": "hiphop-x-boombap-x-lofi",
+      "genres": [
+        "hiphop",
+        "boombap",
+        "lofi"
+      ],
+      "moods": [
+        "nostalgic",
+        "chill",
+        "soulful"
+      ],
+      "tags": [
+        "volume"
+      ],
+      "producer": "963 Beats",
+      "featured": false,
+      "description": null,
+      "status": null
+    },
+    {
+      "id": "hiphop-x-boombap-x-lofi--yellow-man",
+      "title": "YELLOW MAN",
+      "slug": "yellow-man",
+      "file": "Beats/hiphop x boombap x lofi/YELLOW MAN I Prod by Astro Blacksmith.mp3",
+      "artwork": null,
+      "bpm": 176,
+      "key": "Gbm",
+      "year": 2025,
+      "playCount": 1,
+      "addedAt": "2025-08-11",
+      "collection": "hiphop-x-boombap-x-lofi",
+      "genres": [
+        "hiphop",
+        "boombap",
+        "lofi"
+      ],
+      "moods": [
+        "nostalgic",
+        "chill",
+        "soulful"
+      ],
+      "tags": [
+        "yellow",
+        "man"
+      ],
+      "producer": "963 Beats",
+      "featured": false,
+      "description": null,
+      "status": null
+    },
+    {
       "id": "new-jazz-x-melodic-trap-x-experimental-trap--away",
       "title": "AWAY",
       "slug": "away",
@@ -219,7 +776,8 @@ window.ACLASS_DATA = {
       ],
       "producer": "963 Beats",
       "featured": false,
-      "description": null
+      "description": null,
+      "status": null
     },
     {
       "id": "new-jazz-x-melodic-trap-x-experimental-trap--changes",
@@ -248,7 +806,8 @@ window.ACLASS_DATA = {
       ],
       "producer": "963 Beats",
       "featured": false,
-      "description": null
+      "description": null,
+      "status": null
     },
     {
       "id": "new-jazz-x-melodic-trap-x-experimental-trap--eyes",
@@ -277,7 +836,8 @@ window.ACLASS_DATA = {
       ],
       "producer": "963 Beats",
       "featured": false,
-      "description": null
+      "description": null,
+      "status": null
     },
     {
       "id": "new-jazz-x-melodic-trap-x-experimental-trap--high-cafe",
@@ -307,7 +867,8 @@ window.ACLASS_DATA = {
       ],
       "producer": "963 Beats",
       "featured": false,
-      "description": null
+      "description": null,
+      "status": null
     },
     {
       "id": "new-jazz-x-melodic-trap-x-experimental-trap--never-was",
@@ -337,7 +898,8 @@ window.ACLASS_DATA = {
       ],
       "producer": "963 Beats",
       "featured": false,
-      "description": null
+      "description": null,
+      "status": null
     },
     {
       "id": "new-jazz-x-melodic-trap-x-experimental-trap--outside",
@@ -366,7 +928,8 @@ window.ACLASS_DATA = {
       ],
       "producer": "963 Beats",
       "featured": false,
-      "description": null
+      "description": null,
+      "status": null
     },
     {
       "id": "new-jazz-x-melodic-trap-x-experimental-trap--speed",
@@ -395,7 +958,8 @@ window.ACLASS_DATA = {
       ],
       "producer": "963 Beats",
       "featured": false,
-      "description": null
+      "description": null,
+      "status": null
     },
     {
       "id": "new-jazz-x-melodic-trap-x-experimental-trap--third-vision",
@@ -425,7 +989,8 @@ window.ACLASS_DATA = {
       ],
       "producer": "963 Beats",
       "featured": false,
-      "description": null
+      "description": null,
+      "status": null
     },
     {
       "id": "new-jazz-x-melodic-trap-x-experimental-trap--trends",
@@ -454,7 +1019,8 @@ window.ACLASS_DATA = {
       ],
       "producer": "963 Beats",
       "featured": false,
-      "description": null
+      "description": null,
+      "status": null
     },
     {
       "id": "new-jazz-x-melodic-trap-x-experimental-trap--upgrades",
@@ -483,7 +1049,8 @@ window.ACLASS_DATA = {
       ],
       "producer": "963 Beats",
       "featured": false,
-      "description": null
+      "description": null,
+      "status": null
     },
     {
       "id": "plug-x-new-wave-x-smooth-trap-x-laid-back--eternal-flow",
@@ -514,7 +1081,8 @@ window.ACLASS_DATA = {
       ],
       "producer": "963 Beats",
       "featured": false,
-      "description": null
+      "description": null,
+      "status": null
     },
     {
       "id": "plug-x-new-wave-x-smooth-trap-x-laid-back--focus",
@@ -544,7 +1112,8 @@ window.ACLASS_DATA = {
       ],
       "producer": "963 Beats",
       "featured": false,
-      "description": null
+      "description": null,
+      "status": null
     },
     {
       "id": "plug-x-new-wave-x-smooth-trap-x-laid-back--numbers",
@@ -574,7 +1143,8 @@ window.ACLASS_DATA = {
       ],
       "producer": "963 Beats",
       "featured": false,
-      "description": null
+      "description": null,
+      "status": null
     },
     {
       "id": "plug-x-new-wave-x-smooth-trap-x-laid-back--payroll",
@@ -604,7 +1174,8 @@ window.ACLASS_DATA = {
       ],
       "producer": "963 Beats",
       "featured": false,
-      "description": null
+      "description": null,
+      "status": null
     },
     {
       "id": "plug-x-new-wave-x-smooth-trap-x-laid-back--shimmer",
@@ -634,7 +1205,8 @@ window.ACLASS_DATA = {
       ],
       "producer": "963 Beats",
       "featured": false,
-      "description": null
+      "description": null,
+      "status": null
     },
     {
       "id": "plug-x-new-wave-x-smooth-trap-x-laid-back--signs",
@@ -664,7 +1236,8 @@ window.ACLASS_DATA = {
       ],
       "producer": "963 Beats",
       "featured": false,
-      "description": null
+      "description": null,
+      "status": null
     },
     {
       "id": "plug-x-new-wave-x-smooth-trap-x-laid-back--snow",
@@ -694,7 +1267,8 @@ window.ACLASS_DATA = {
       ],
       "producer": "963 Beats",
       "featured": false,
-      "description": null
+      "description": null,
+      "status": null
     },
     {
       "id": "plug-x-new-wave-x-smooth-trap-x-laid-back--sunset",
@@ -724,7 +1298,8 @@ window.ACLASS_DATA = {
       ],
       "producer": "963 Beats",
       "featured": false,
-      "description": null
+      "description": null,
+      "status": null
     },
     {
       "id": "plug-x-new-wave-x-smooth-trap-x-laid-back--time-travel",
@@ -755,7 +1330,8 @@ window.ACLASS_DATA = {
       ],
       "producer": "963 Beats",
       "featured": false,
-      "description": null
+      "description": null,
+      "status": null
     },
     {
       "id": "plug-x-new-wave-x-smooth-trap-x-laid-back--wave",
@@ -785,7 +1361,8 @@ window.ACLASS_DATA = {
       ],
       "producer": "963 Beats",
       "featured": false,
-      "description": null
+      "description": null,
+      "status": null
     },
     {
       "id": "supertrap-x-darkology-x-lovemusic-x-new-planet--ambient",
@@ -815,7 +1392,8 @@ window.ACLASS_DATA = {
       ],
       "producer": "963 Beats",
       "featured": false,
-      "description": null
+      "description": null,
+      "status": null
     },
     {
       "id": "supertrap-x-darkology-x-lovemusic-x-new-planet--apex",
@@ -845,7 +1423,8 @@ window.ACLASS_DATA = {
       ],
       "producer": "963 Beats",
       "featured": false,
-      "description": null
+      "description": null,
+      "status": null
     },
     {
       "id": "supertrap-x-darkology-x-lovemusic-x-new-planet--balcony",
@@ -875,7 +1454,8 @@ window.ACLASS_DATA = {
       ],
       "producer": "963 Beats",
       "featured": false,
-      "description": null
+      "description": null,
+      "status": null
     },
     {
       "id": "supertrap-x-darkology-x-lovemusic-x-new-planet--barcode",
@@ -905,7 +1485,8 @@ window.ACLASS_DATA = {
       ],
       "producer": "963 Beats",
       "featured": false,
-      "description": null
+      "description": null,
+      "status": null
     },
     {
       "id": "supertrap-x-darkology-x-lovemusic-x-new-planet--being",
@@ -935,7 +1516,8 @@ window.ACLASS_DATA = {
       ],
       "producer": "963 Beats",
       "featured": false,
-      "description": null
+      "description": null,
+      "status": null
     },
     {
       "id": "supertrap-x-darkology-x-lovemusic-x-new-planet--blue-orb",
@@ -966,7 +1548,8 @@ window.ACLASS_DATA = {
       ],
       "producer": "963 Beats",
       "featured": false,
-      "description": null
+      "description": null,
+      "status": null
     },
     {
       "id": "supertrap-x-darkology-x-lovemusic-x-new-planet--blueprint",
@@ -996,7 +1579,8 @@ window.ACLASS_DATA = {
       ],
       "producer": "963 Beats",
       "featured": false,
-      "description": null
+      "description": null,
+      "status": null
     },
     {
       "id": "supertrap-x-darkology-x-lovemusic-x-new-planet--bundles",
@@ -1026,7 +1610,8 @@ window.ACLASS_DATA = {
       ],
       "producer": "963 Beats",
       "featured": false,
-      "description": null
+      "description": null,
+      "status": null
     },
     {
       "id": "supertrap-x-darkology-x-lovemusic-x-new-planet--change",
@@ -1056,7 +1641,8 @@ window.ACLASS_DATA = {
       ],
       "producer": "963 Beats",
       "featured": false,
-      "description": null
+      "description": null,
+      "status": null
     },
     {
       "id": "supertrap-x-darkology-x-lovemusic-x-new-planet--cold-link",
@@ -1087,7 +1673,8 @@ window.ACLASS_DATA = {
       ],
       "producer": "963 Beats",
       "featured": false,
-      "description": null
+      "description": null,
+      "status": null
     },
     {
       "id": "supertrap-x-darkology-x-lovemusic-x-new-planet--crystalization",
@@ -1117,7 +1704,8 @@ window.ACLASS_DATA = {
       ],
       "producer": "963 Beats",
       "featured": false,
-      "description": null
+      "description": null,
+      "status": null
     },
     {
       "id": "supertrap-x-darkology-x-lovemusic-x-new-planet--ctrl",
@@ -1147,7 +1735,8 @@ window.ACLASS_DATA = {
       ],
       "producer": "963 Beats",
       "featured": false,
-      "description": null
+      "description": null,
+      "status": null
     },
     {
       "id": "supertrap-x-darkology-x-lovemusic-x-new-planet--doors",
@@ -1177,7 +1766,8 @@ window.ACLASS_DATA = {
       ],
       "producer": "963 Beats",
       "featured": false,
-      "description": null
+      "description": null,
+      "status": null
     },
     {
       "id": "supertrap-x-darkology-x-lovemusic-x-new-planet--driven",
@@ -1207,7 +1797,8 @@ window.ACLASS_DATA = {
       ],
       "producer": "963 Beats",
       "featured": false,
-      "description": null
+      "description": null,
+      "status": null
     },
     {
       "id": "supertrap-x-darkology-x-lovemusic-x-new-planet--energy",
@@ -1237,7 +1828,8 @@ window.ACLASS_DATA = {
       ],
       "producer": "963 Beats",
       "featured": false,
-      "description": null
+      "description": null,
+      "status": null
     },
     {
       "id": "supertrap-x-darkology-x-lovemusic-x-new-planet--export",
@@ -1267,7 +1859,8 @@ window.ACLASS_DATA = {
       ],
       "producer": "963 Beats",
       "featured": false,
-      "description": null
+      "description": null,
+      "status": null
     },
     {
       "id": "supertrap-x-darkology-x-lovemusic-x-new-planet--first",
@@ -1297,7 +1890,8 @@ window.ACLASS_DATA = {
       ],
       "producer": "963 Beats",
       "featured": false,
-      "description": null
+      "description": null,
+      "status": null
     },
     {
       "id": "supertrap-x-darkology-x-lovemusic-x-new-planet--future",
@@ -1327,7 +1921,8 @@ window.ACLASS_DATA = {
       ],
       "producer": "963 Beats",
       "featured": false,
-      "description": null
+      "description": null,
+      "status": null
     },
     {
       "id": "supertrap-x-darkology-x-lovemusic-x-new-planet--glow",
@@ -1356,7 +1951,8 @@ window.ACLASS_DATA = {
       ],
       "producer": "963 Beats",
       "featured": true,
-      "description": "A menacing supertrap banger. Rattling 808s, haunted bells and a bassline built to shake the club. 145 BPM of pure venom."
+      "description": "A menacing supertrap banger. Rattling 808s, haunted bells and a bassline built to shake the club. 145 BPM of pure venom.",
+      "status": null
     },
     {
       "id": "supertrap-x-darkology-x-lovemusic-x-new-planet--ground-rules",
@@ -1387,7 +1983,8 @@ window.ACLASS_DATA = {
       ],
       "producer": "963 Beats",
       "featured": true,
-      "description": "Gritty, string-laden dark trap. 134 BPM, low-key piano and a hard knock that leaves room for a heavy vocal."
+      "description": "Gritty, string-laden dark trap. 134 BPM, low-key piano and a hard knock that leaves room for a heavy vocal.",
+      "status": null
     },
     {
       "id": "supertrap-x-darkology-x-lovemusic-x-new-planet--hellfire",
@@ -1417,7 +2014,8 @@ window.ACLASS_DATA = {
       ],
       "producer": "963 Beats",
       "featured": false,
-      "description": null
+      "description": null,
+      "status": null
     },
     {
       "id": "supertrap-x-darkology-x-lovemusic-x-new-planet--horizon",
@@ -1447,7 +2045,8 @@ window.ACLASS_DATA = {
       ],
       "producer": "963 Beats",
       "featured": false,
-      "description": null
+      "description": null,
+      "status": null
     },
     {
       "id": "supertrap-x-darkology-x-lovemusic-x-new-planet--intel",
@@ -1477,7 +2076,8 @@ window.ACLASS_DATA = {
       ],
       "producer": "963 Beats",
       "featured": false,
-      "description": null
+      "description": null,
+      "status": null
     },
     {
       "id": "supertrap-x-darkology-x-lovemusic-x-new-planet--jungle",
@@ -1507,7 +2107,8 @@ window.ACLASS_DATA = {
       ],
       "producer": "963 Beats",
       "featured": false,
-      "description": null
+      "description": null,
+      "status": null
     },
     {
       "id": "supertrap-x-darkology-x-lovemusic-x-new-planet--level-up",
@@ -1538,7 +2139,8 @@ window.ACLASS_DATA = {
       ],
       "producer": "963 Beats",
       "featured": false,
-      "description": null
+      "description": null,
+      "status": null
     },
     {
       "id": "supertrap-x-darkology-x-lovemusic-x-new-planet--light",
@@ -1568,7 +2170,8 @@ window.ACLASS_DATA = {
       ],
       "producer": "963 Beats",
       "featured": false,
-      "description": null
+      "description": null,
+      "status": null
     },
     {
       "id": "supertrap-x-darkology-x-lovemusic-x-new-planet--lightwork",
@@ -1598,7 +2201,8 @@ window.ACLASS_DATA = {
       ],
       "producer": "963 Beats",
       "featured": false,
-      "description": null
+      "description": null,
+      "status": null
     },
     {
       "id": "supertrap-x-darkology-x-lovemusic-x-new-planet--machine",
@@ -1628,7 +2232,8 @@ window.ACLASS_DATA = {
       ],
       "producer": "963 Beats",
       "featured": false,
-      "description": null
+      "description": null,
+      "status": null
     },
     {
       "id": "supertrap-x-darkology-x-lovemusic-x-new-planet--master-settings",
@@ -1659,7 +2264,8 @@ window.ACLASS_DATA = {
       ],
       "producer": "963 Beats",
       "featured": false,
-      "description": null
+      "description": null,
+      "status": null
     },
     {
       "id": "supertrap-x-darkology-x-lovemusic-x-new-planet--mind-echo",
@@ -1690,7 +2296,8 @@ window.ACLASS_DATA = {
       ],
       "producer": "963 Beats",
       "featured": false,
-      "description": null
+      "description": null,
+      "status": null
     },
     {
       "id": "supertrap-x-darkology-x-lovemusic-x-new-planet--neon",
@@ -1720,7 +2327,8 @@ window.ACLASS_DATA = {
       ],
       "producer": "963 Beats",
       "featured": false,
-      "description": null
+      "description": null,
+      "status": null
     },
     {
       "id": "supertrap-x-darkology-x-lovemusic-x-new-planet--palace",
@@ -1750,7 +2358,8 @@ window.ACLASS_DATA = {
       ],
       "producer": "963 Beats",
       "featured": false,
-      "description": null
+      "description": null,
+      "status": null
     },
     {
       "id": "supertrap-x-darkology-x-lovemusic-x-new-planet--planet",
@@ -1780,7 +2389,8 @@ window.ACLASS_DATA = {
       ],
       "producer": "963 Beats",
       "featured": false,
-      "description": null
+      "description": null,
+      "status": null
     },
     {
       "id": "supertrap-x-darkology-x-lovemusic-x-new-planet--plug",
@@ -1810,7 +2420,8 @@ window.ACLASS_DATA = {
       ],
       "producer": "963 Beats",
       "featured": false,
-      "description": null
+      "description": null,
+      "status": null
     },
     {
       "id": "supertrap-x-darkology-x-lovemusic-x-new-planet--portal",
@@ -1840,7 +2451,8 @@ window.ACLASS_DATA = {
       ],
       "producer": "963 Beats",
       "featured": false,
-      "description": null
+      "description": null,
+      "status": null
     },
     {
       "id": "supertrap-x-darkology-x-lovemusic-x-new-planet--quest",
@@ -1870,7 +2482,8 @@ window.ACLASS_DATA = {
       ],
       "producer": "963 Beats",
       "featured": false,
-      "description": null
+      "description": null,
+      "status": null
     },
     {
       "id": "supertrap-x-darkology-x-lovemusic-x-new-planet--quicksilver",
@@ -1900,7 +2513,8 @@ window.ACLASS_DATA = {
       ],
       "producer": "963 Beats",
       "featured": false,
-      "description": null
+      "description": null,
+      "status": null
     },
     {
       "id": "supertrap-x-darkology-x-lovemusic-x-new-planet--realm",
@@ -1930,7 +2544,8 @@ window.ACLASS_DATA = {
       ],
       "producer": "963 Beats",
       "featured": false,
-      "description": null
+      "description": null,
+      "status": null
     },
     {
       "id": "supertrap-x-darkology-x-lovemusic-x-new-planet--save-points",
@@ -1961,7 +2576,8 @@ window.ACLASS_DATA = {
       ],
       "producer": "963 Beats",
       "featured": false,
-      "description": null
+      "description": null,
+      "status": null
     },
     {
       "id": "supertrap-x-darkology-x-lovemusic-x-new-planet--sense",
@@ -1991,7 +2607,8 @@ window.ACLASS_DATA = {
       ],
       "producer": "963 Beats",
       "featured": false,
-      "description": null
+      "description": null,
+      "status": null
     },
     {
       "id": "supertrap-x-darkology-x-lovemusic-x-new-planet--shapes",
@@ -2021,7 +2638,8 @@ window.ACLASS_DATA = {
       ],
       "producer": "963 Beats",
       "featured": false,
-      "description": null
+      "description": null,
+      "status": null
     },
     {
       "id": "supertrap-x-darkology-x-lovemusic-x-new-planet--shield",
@@ -2051,7 +2669,8 @@ window.ACLASS_DATA = {
       ],
       "producer": "963 Beats",
       "featured": false,
-      "description": null
+      "description": null,
+      "status": null
     },
     {
       "id": "supertrap-x-darkology-x-lovemusic-x-new-planet--slumber",
@@ -2081,7 +2700,8 @@ window.ACLASS_DATA = {
       ],
       "producer": "963 Beats",
       "featured": false,
-      "description": null
+      "description": null,
+      "status": null
     },
     {
       "id": "supertrap-x-darkology-x-lovemusic-x-new-planet--soul-pass",
@@ -2112,7 +2732,8 @@ window.ACLASS_DATA = {
       ],
       "producer": "963 Beats",
       "featured": false,
-      "description": null
+      "description": null,
+      "status": null
     },
     {
       "id": "supertrap-x-darkology-x-lovemusic-x-new-planet--spell-words",
@@ -2143,7 +2764,8 @@ window.ACLASS_DATA = {
       ],
       "producer": "963 Beats",
       "featured": false,
-      "description": null
+      "description": null,
+      "status": null
     },
     {
       "id": "supertrap-x-darkology-x-lovemusic-x-new-planet--stage",
@@ -2173,7 +2795,8 @@ window.ACLASS_DATA = {
       ],
       "producer": "963 Beats",
       "featured": false,
-      "description": null
+      "description": null,
+      "status": null
     },
     {
       "id": "supertrap-x-darkology-x-lovemusic-x-new-planet--teleport",
@@ -2203,7 +2826,8 @@ window.ACLASS_DATA = {
       ],
       "producer": "963 Beats",
       "featured": false,
-      "description": null
+      "description": null,
+      "status": null
     },
     {
       "id": "supertrap-x-darkology-x-lovemusic-x-new-planet--transform",
@@ -2233,7 +2857,8 @@ window.ACLASS_DATA = {
       ],
       "producer": "963 Beats",
       "featured": false,
-      "description": null
+      "description": null,
+      "status": null
     },
     {
       "id": "supertrap-x-darkology-x-lovemusic-x-new-planet--way-out",
@@ -2264,7 +2889,8 @@ window.ACLASS_DATA = {
       ],
       "producer": "963 Beats",
       "featured": false,
-      "description": null
+      "description": null,
+      "status": null
     },
     {
       "id": "supertrap-x-darkology-x-lovemusic-x-new-planet--working",
@@ -2294,7 +2920,8 @@ window.ACLASS_DATA = {
       ],
       "producer": "963 Beats",
       "featured": false,
-      "description": null
+      "description": null,
+      "status": null
     },
     {
       "id": "uk-drill-x-usa-drill-x-jersey-x-chriaq--back-roads",
@@ -2325,7 +2952,8 @@ window.ACLASS_DATA = {
       ],
       "producer": "963 Beats",
       "featured": false,
-      "description": null
+      "description": null,
+      "status": null
     },
     {
       "id": "uk-drill-x-usa-drill-x-jersey-x-chriaq--borders",
@@ -2355,7 +2983,8 @@ window.ACLASS_DATA = {
       ],
       "producer": "963 Beats",
       "featured": false,
-      "description": null
+      "description": null,
+      "status": null
     },
     {
       "id": "uk-drill-x-usa-drill-x-jersey-x-chriaq--cold-nights",
@@ -2386,7 +3015,8 @@ window.ACLASS_DATA = {
       ],
       "producer": "963 Beats",
       "featured": false,
-      "description": null
+      "description": null,
+      "status": null
     },
     {
       "id": "uk-drill-x-usa-drill-x-jersey-x-chriaq--dot",
@@ -2416,7 +3046,8 @@ window.ACLASS_DATA = {
       ],
       "producer": "963 Beats",
       "featured": false,
-      "description": null
+      "description": null,
+      "status": null
     },
     {
       "id": "uk-drill-x-usa-drill-x-jersey-x-chriaq--end-zone",
@@ -2447,7 +3078,8 @@ window.ACLASS_DATA = {
       ],
       "producer": "963 Beats",
       "featured": false,
-      "description": null
+      "description": null,
+      "status": null
     },
     {
       "id": "uk-drill-x-usa-drill-x-jersey-x-chriaq--felon",
@@ -2477,7 +3109,8 @@ window.ACLASS_DATA = {
       ],
       "producer": "963 Beats",
       "featured": false,
-      "description": null
+      "description": null,
+      "status": null
     },
     {
       "id": "uk-drill-x-usa-drill-x-jersey-x-chriaq--magic",
@@ -2507,7 +3140,8 @@ window.ACLASS_DATA = {
       ],
       "producer": "963 Beats",
       "featured": false,
-      "description": null
+      "description": null,
+      "status": null
     },
     {
       "id": "uk-drill-x-usa-drill-x-jersey-x-chriaq--points",
@@ -2537,7 +3171,8 @@ window.ACLASS_DATA = {
       ],
       "producer": "963 Beats",
       "featured": false,
-      "description": null
+      "description": null,
+      "status": null
     },
     {
       "id": "uk-drill-x-usa-drill-x-jersey-x-chriaq--request",
@@ -2567,7 +3202,8 @@ window.ACLASS_DATA = {
       ],
       "producer": "963 Beats",
       "featured": false,
-      "description": null
+      "description": null,
+      "status": null
     },
     {
       "id": "uk-drill-x-usa-drill-x-jersey-x-chriaq--retail",
@@ -2597,7 +3233,8 @@ window.ACLASS_DATA = {
       ],
       "producer": "963 Beats",
       "featured": false,
-      "description": null
+      "description": null,
+      "status": null
     }
   ]
 };

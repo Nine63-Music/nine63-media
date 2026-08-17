@@ -105,7 +105,7 @@ function check(name, cond, extra) {
   check("favorite toggled", faved === true);
 
   /* add to cart */
-  await page.click('[data-action="add-cart"]');
+  await clickSel('[data-action="add-cart"]');
   await wait(200);
   const cartCount = await page.evaluate(() => window.ACLASS.Store.cartCount);
   check("cart has item", cartCount === 1, "got " + cartCount);

@@ -37,7 +37,6 @@
     s += genres.length ? genres.slice(0, 2).join(" + ").toLowerCase() : coll ? coll.displayName.toLowerCase() : "";
     s = s.replace(/,\s+$/, "") + " beat crafted by " + beat.producer + ".";
     const bits = [];
-    if (beat.bpm) bits.push(beat.bpm + " BPM");
     if (beat.key) bits.push("key of " + beat.key);
     if (beat.year) bits.push("made in " + beat.year);
     if (bits.length) s += " " + bits.join(" · ") + ".";
@@ -107,6 +106,24 @@
     const html =
       hero(featured) +
       marquee() +
+
+      '<section class="section" id="featured-picks" style="padding-top:0">' +
+      '<div class="container">' +
+      C.sectionHead(null, "Featured <em>picks</em>", "Hand-selected from the vault — press play on these first.", "#/beats", "Browse all") +
+      C.featuredPicks(Utils.sortBeats(data.beats.filter((b) => b.featured), "popular")) +
+      "</div>" +
+      "</section>" +
+
+      '<section class="section" id="save-more" style="padding-top:0">' +
+      '<div class="container">' +
+      C.sectionHead(null, "Save more <em>with credits</em>", "Prepay for credits and apply them to any beat. Save 17–23% on every purchase.", "#/credits", "How it works") +
+      '<div class="grid grid--credits">' +
+      (cfg.creditPacks || []).map((p) => C.creditPackCard(p)).join("") +
+      (cfg.bundles || []).map((b) => C.bundleCard(b)).join("") +
+      "</div>" +
+      "</div>" +
+      "</section>" +
+
       '<section class="section" id="fresh">' +
       '<div class="container">' +
       C.sectionHead(null, cfg.copy.freshTitle + " <em>" + subTitleWord(2) + "</em>", cfg.copy.freshSub, "#/beats?sort=newest", "All beats") +
@@ -196,7 +213,6 @@
 
   function beatMeta(beat) {
     const bits = [];
-    if (beat.bpm) bits.push(beat.bpm + " BPM");
     if (beat.key) bits.push(beat.key);
     if (beat.year) bits.push(beat.year);
     return Utils.genreLine(beat) + (bits.length ? " · " + bits.join(" · ") : "");
@@ -595,14 +611,16 @@
       "</button>" +
       "</div>" +
       '<div class="beat-hero__actions">' +
-      '<button class="btn btn--primary btn--lg" data-action="play" data-id="' + e(beat.id) + '">' +
-      '<span class="icon" aria-hidden="true">' + icon(playing && Audio.state.playing ? "pause" : "play") + "</span>" +
-      (playing && Audio.state.playing ? "Pause" : "Play beat") +
-      "</button>" +
-      '<button class="btn btn--ghost btn--lg" data-action="fav" data-id="' + e(beat.id) + '">' +
-      '<span class="icon" aria-hidden="true">' + icon("heart") + "</span>" +
-      (faved ? "Favorited" : "Favorite") +
-      "</button>" +
+      (beat.status === "sold"
+        ? '<span class="btn btn--sold btn--lg">This beat has been sold</span>'
+        : '<button class="btn btn--primary btn--lg" data-action="play" data-id="' + e(beat.id) + '">' +
+          '<span class="icon" aria-hidden="true">' + icon(playing && Audio.state.playing ? "pause" : "play") + "</span>" +
+          (playing && Audio.state.playing ? "Pause" : "Play beat") +
+          "</button>" +
+          '<button class="btn btn--ghost btn--lg" data-action="fav" data-id="' + e(beat.id) + '">' +
+          '<span class="icon" aria-hidden="true">' + icon("heart") + "</span>" +
+          (faved ? "Favorited" : "Favorite") +
+          "</button>") +
       "</div>" +
       "</div>" +
 
@@ -612,7 +630,6 @@
       '<p class="beat-byline">by <strong>' + e(beat.producer) + "</strong></p>" +
 
       '<div class="meta-strip">' +
-      (beat.bpm ? '<span class="meta-pill"><b>' + beat.bpm + "</b> BPM</span>" : "") +
       (beat.key ? '<span class="meta-pill">Key of <b>' + e(beat.key) + "</b></span>" : "") +
       (beat.year ? '<span class="meta-pill">Made in <b>' + beat.year + "</b></span>" : "") +
       (beat.playCount ? '<span class="meta-pill">Played <b>' + Utils.fmt(beat.playCount) + "</b> times</span>" : "") +
@@ -630,29 +647,46 @@
       '<div class="para"><p>' + e(description) + "</p></div>" +
 
       '<div style="margin-top:30px">' +
-      '<h2 class="display h3" style="margin-bottom:6px">Choose your license</h2>' +
+      (beat.status === "sold"
+        ? '<div class="sold-notice"><h2 class="display h3">This beat has been sold</h2><p style="color:var(--text-mute);font-size:0.95rem;margin-top:8px">The exclusive rights to this beat have been purchased. Browse more beats to find your next track.</p><a class="btn btn--primary btn--lg" href="#/beats" style="margin-top:18px">Browse beats</a></div>'
+        : '<h2 class="display h3" style="margin-bottom:6px">Choose your license</h2>' +
       '<p style="color:var(--text-mute);font-size:0.92rem;margin-bottom:18px">Pick the rights you need. You can always upgrade later — leases are just the start.</p>' +
+      (Store.creditsRemaining > 0 ? '<p style="color:var(--amber-bright);font-size:0.85rem;margin-bottom:14px">You have <b>' + Store.creditsRemaining + " credit" + (Store.creditsRemaining > 1 ? "s" : "") + "</b> available.</p>" : "") +
       '<div class="license-grid">' +
       cfg.licenses
-        .map((l) =>
+        .map((l) => {
+          const creditCost = (cfg.licenseCredits || {})[l.slug];
+          const hasCredits = creditCost != null && Store.creditsRemaining >= creditCost;
+          const creditCash = creditCost != null ? Math.max(0, l.price - creditCost * (cfg.creditValue || 25)) : 0;
+          return (
           '<div class="license-card' + (l.popular ? " license-card--pick" : "") + '">' +
           '<div class="license-card__top">' +
           "<div>" +
           '<div class="license-card__name">' + e(l.name) + "</div>" +
           (l.popular ? '<span class="license-card__tag">Most chosen</span>' : l.tag ? '<span class="license-card__tag">' + e(l.tag) + "</span>" : "") +
           "</div>" +
-          '<div class="license-card__price">' + e(Utils.fmtPrice(l.price)) + (l.slug === "exclusive" ? " <small>negotiable</small>" : "") + "</div>" +
+          '<div class="license-card__price">' + e(Utils.fmtPrice(l.price)) + (l.slug === "exclusive" ? " <small>negotiable</small>" : "") +
+          (creditCost != null ? '<div class="license-card__credit">or ' + e(Utils.fmtPrice(creditCash)) + " + " + creditCost + " credit" + (creditCost > 1 ? "s" : "") + "</div>" : "") +
+          "</div>" +
           "</div>" +
           '<p class="license-card__desc">' + e(l.blurb) + "</p>" +
           '<ul class="license-card__features">' + l.features.map((f) => "<li>" + e(f) + "</li>").join("") + "</ul>" +
+          '<div class="license-card__actions">' +
           '<button class="btn ' + (l.popular ? "btn--primary" : "btn--ghost") + '" data-action="add-cart" data-id="' + e(beat.id) + '" data-license="' + e(l.slug) + '">' +
-          (Store.cartHas(beat.id, l.slug) ? "In cart — add again" : "Add " + l.name + " to cart") +
+          (Store.cartHas(beat.id, l.slug) ? "In cart" : "Add " + l.name + " to cart") +
           "</button>" +
+          (creditCost != null
+            ? '<button class="btn ' + (hasCredits ? "btn--credit" : "btn--ghost btn--disabled") + '" data-action="buy-with-credit" data-id="' + e(beat.id) + '" data-license="' + e(l.slug) + '"' + (hasCredits ? "" : " disabled") + ">" +
+              (hasCredits ? "Buy with " + creditCost + " credit" + (creditCost > 1 ? "s" : "") : "Buy credits first") +
+              "</button>"
+            : "") +
+          "</div>" +
           "</div>"
-        )
+          );
+        })
         .join("") +
       "</div>" +
-      '<p class="note" style="margin-top:16px">Not sure which one? <a href="#/licenses" style="color:var(--amber-bright);text-decoration:underline">Read the license guide</a> — it takes a minute and saves you headaches later.</p>' +
+      '<p class="note" style="margin-top:16px">Not sure which one? <a href="#/licenses" style="color:var(--amber-bright);text-decoration:underline">Read the license guide</a> — it takes a minute and saves you headaches later. <a href="#/credits" style="color:var(--amber-bright);text-decoration:underline">Or learn about credits</a>.</p>') +
       "</div>" +
       "</div>" +
       "</div>" +
@@ -844,7 +878,31 @@
 
   function renderCart() {
     const items = Store.cart;
-    const total = items.reduce((s, it) => s + it.license.price, 0);
+    const beats = items.filter((it) => it.type === "beat");
+    const creditPacks = items.filter((it) => it.type === "credits");
+    const bundles = items.filter((it) => it.type === "bundle");
+    const total = items.reduce((s, it) => {
+      if (it.type === "credits") return s + it.pack.price;
+      if (it.type === "bundle") return s + it.bundle.price;
+      if (it.creditsUsed) {
+        var cv = cfg.creditValue || 25;
+        return s + Math.max(0, it.license.price - it.creditsUsed * cv);
+      }
+      return s + it.license.price;
+    }, 0);
+    const normalTotal = beats.reduce((s, it) => s + it.license.price, 0) +
+      creditPacks.reduce((s, it) => s + it.pack.price, 0) +
+      bundles.reduce((s, it) => s + it.bundle.price, 0);
+    const creditSavings = beats.reduce((s, it) => {
+      if (!it.creditsUsed) return s;
+      var cv = cfg.creditValue || 25;
+      return s + it.creditsUsed * cv;
+    }, 0);
+    const bundleSavings = bundles.reduce((s, it) => {
+      var normal = it.bundle.beats * cfg.startingPrice;
+      return s + (normal - it.bundle.price);
+    }, 0);
+    const totalSavings = creditSavings + bundleSavings;
 
     if (!items.length) {
       return Object.assign(meta("Your cart", "Nothing in your cart yet."), {
@@ -853,7 +911,10 @@
           '<div class="empty-state">' +
           '<div class="display h3">Your cart is quiet.</div>' +
           "<p>Pick a beat and a license — the cart comes alive in one click.</p>" +
+          '<div style="display:flex;gap:12px;flex-wrap:wrap;margin-top:14px">' +
           '<a class="btn btn--primary" href="#/beats">Browse the vault</a>' +
+          '<a class="btn btn--ghost" href="#/credits">Buy credits</a>' +
+          "</div>" +
           "</div>" +
           "</div>",
       });
@@ -864,38 +925,111 @@
         '<div class="container page-head">' +
         breadcrumb([{ label: "Home", href: "#/" }, { label: "Cart" }]) +
         '<h1 class="display h1">Your <em>cart</em></h1>' +
-        '<p class="page-head__meta">' + items.length + " license" + (items.length === 1 ? "" : "s") + " ready.</p>" +
+        '<p class="page-head__meta">' + items.length + " item" + (items.length === 1 ? "" : "s") + " ready." +
+        (totalSavings > 0 ? ' <span class="savings-badge">You save ' + e(Utils.fmtPrice(totalSavings)) + "</span>" : "") +
+        "</p>" +
         "</div>" +
+
         '<div class="container section--tight cart-layout">' +
         '<div style="display:grid;gap:14px">' +
-        items
-          .map(
-            (it) =>
-              '<div class="cart-item">' +
-              '<a class="cart-item__art" href="#/beat/' + e(it.beat.slug) + '"><img src="' + e(Utils.artSrc(it.beat)) + '" alt="Artwork for ' + e(it.beat.title) + '" loading="lazy"></a>' +
+
+        (creditPacks.length
+          ? '<div class="cart-group"><h3 class="cart-group__title">Credit Packs</h3>' +
+            creditPacks.map((it) =>
+              '<div class="cart-item cart-item--credits">' +
+              '<div class="cart-item__icon"><span class="icon" aria-hidden="true">' + icon("tag") + "</span></div>" +
               "<div>" +
-              '<div class="cart-item__title">' + e(it.beat.title) + "</div>" +
-              '<div class="cart-item__sub">' + e(Utils.genreLine(it.beat)) + " · " + e(it.license.name) + " license</div>" +
+              '<div class="cart-item__title">' + e(it.pack.name) + "</div>" +
+              '<div class="cart-item__sub">' + it.pack.credits + " credits · " + e(Utils.fmtPrice(it.pack.price)) + "</div>" +
               "</div>" +
               '<div style="display:flex;align-items:center;gap:14px">' +
-              '<span class="cart-item__price">' + e(Utils.fmtPrice(it.license.price)) + "</span>" +
-              '<button class="icon-btn" data-action="remove-cart" data-id="' + e(it.beat.id) + '" data-license="' + e(it.license.slug) + '" aria-label="Remove ' + e(it.beat.title) + " from cart\">" + icon("trash") + "</button>" +
+              '<span class="cart-item__price">' + e(Utils.fmtPrice(it.pack.price)) + "</span>" +
+              '<button class="icon-btn" data-action="remove-credits" data-pack="' + e(it.pack.slug) + '" aria-label="Remove ' + e(it.pack.name) + ' from cart">' + icon("trash") + "</button>" +
               "</div>" +
               "</div>"
-          )
-          .join("") +
+            ).join("") +
+            (Store.creditsRemaining > 0 ? '<p class="note" style="margin-top:4px">' + Store.creditsRemaining + " credit" + (Store.creditsRemaining > 1 ? "s" : "") + " remaining — use them on beats below.</p>" : "") +
+            "</div>"
+          : "") +
+
+        (bundles.length
+          ? '<div class="cart-group"><h3 class="cart-group__title">Bundle Deals</h3>' +
+            bundles.map((it) => {
+              var normal = it.bundle.beats * cfg.startingPrice;
+              var save = normal - it.bundle.price;
+              return (
+              '<div class="cart-item cart-item--bundle">' +
+              '<div class="cart-item__icon"><span class="icon" aria-hidden="true">' + icon("tag") + "</span></div>" +
+              "<div>" +
+              '<div class="cart-item__title">' + e(it.bundle.name) + "</div>" +
+              '<div class="cart-item__sub">' + it.bundle.beats + " Basic licenses · " + e(Utils.fmtPrice(it.bundle.price)) +
+              (save > 0 ? ' <span class="savings-badge savings-badge--sm">Save ' + e(Utils.fmtPrice(save)) + "</span>" : "") +
+              "</div>" +
+              "</div>" +
+              '<div style="display:flex;align-items:center;gap:14px">' +
+              '<span class="cart-item__price">' + e(Utils.fmtPrice(it.bundle.price)) + "</span>" +
+              '<button class="icon-btn" data-action="remove-bundle" data-bundle="' + e(it.bundle.slug) + '" aria-label="Remove ' + e(it.bundle.name) + ' from cart">' + icon("trash") + "</button>" +
+              "</div>" +
+              "</div>"
+              );
+            }).join("") +
+            '<p class="note" style="margin-top:4px">Tell us which beats you want in the order notes below.</p>' +
+            "</div>"
+          : "") +
+
+        (beats.length
+          ? '<div class="cart-group"><h3 class="cart-group__title">Beats</h3>' +
+            beats
+              .map(
+                (it) => {
+                  var cashPrice = it.creditsUsed ? Math.max(0, it.license.price - it.creditsUsed * (cfg.creditValue || 25)) : it.license.price;
+                  return (
+                  '<div class="cart-item">' +
+                  '<a class="cart-item__art" href="#/beat/' + e(it.beat.slug) + '"><img src="' + e(Utils.artSrc(it.beat)) + '" alt="Artwork for ' + e(it.beat.title) + '" loading="lazy"></a>' +
+                  "<div>" +
+                  '<div class="cart-item__title">' + e(it.beat.title) + "</div>" +
+                  '<div class="cart-item__sub">' + e((function() { var cg = Utils.genresOf(it.beat); return cg[0] || ""; })()) + " · " + e(it.license.name) + " license" +
+                  (it.creditsUsed ? ' <span class="credit-tag">' + it.creditsUsed + " credit" + (it.creditsUsed > 1 ? "s" : "") + " used</span>" : "") +
+                  "</div>" +
+                  "</div>" +
+                  '<div style="display:flex;align-items:center;gap:14px">' +
+                  '<span class="cart-item__price">' +
+                  (it.creditsUsed
+                    ? '<span class="cart-item__price--original">' + e(Utils.fmtPrice(it.license.price)) + "</span> " + e(Utils.fmtPrice(cashPrice))
+                    : e(Utils.fmtPrice(it.license.price))) +
+                  "</span>" +
+                  '<button class="icon-btn" data-action="remove-cart" data-id="' + e(it.beat.id) + '" data-license="' + e(it.license.slug) + '" aria-label="Remove ' + e(it.beat.title) + " from cart\">" + icon("trash") + "</button>" +
+                  "</div>" +
+                  "</div>"
+                  );
+                }
+              )
+              .join("") +
+            "</div>"
+          : "") +
+
         "</div>" +
 
         '<aside class="order-panel">' +
         "<h3>Checkout</h3>" +
-        items
-          .map((it) => '<div class="order-row"><span>' + e(it.beat.title) + " — " + e(it.license.name) + "</span><span>" + e(Utils.fmtPrice(it.license.price)) + "</span></div>")
-          .join("") +
+
+        creditPacks.map((it) => '<div class="order-row"><span>' + e(it.pack.name) + "</span><span>" + e(Utils.fmtPrice(it.pack.price)) + "</span></div>").join("") +
+        bundles.map((it) => '<div class="order-row"><span>' + e(it.bundle.name) + "</span><span>" + e(Utils.fmtPrice(it.bundle.price)) + "</span></div>").join("") +
+        beats.map((it) => {
+          var cashPrice = it.creditsUsed ? Math.max(0, it.license.price - it.creditsUsed * (cfg.creditValue || 25)) : it.license.price;
+          var label = it.beat.title + " — " + it.license.name;
+          if (it.creditsUsed) label += " (" + it.creditsUsed + " credit" + (it.creditsUsed > 1 ? "s" : "") + ")";
+          return '<div class="order-row"><span>' + e(label) + "</span><span>" + e(Utils.fmtPrice(cashPrice)) + "</span></div>";
+        }).join("") +
+
+        (totalSavings > 0 ? '<div class="order-row order-row--savings"><span>Savings</span><span>-' + e(Utils.fmtPrice(totalSavings)) + "</span></div>" : "") +
         '<div class="order-row order-row--total"><span>Total</span><b>' + e(Utils.fmtPrice(total)) + "</b></div>" +
+
         '<div data-role="checkout-form">' +
         '<div class="field"><label for="co-name">Your name</label><input id="co-name" autocomplete="name" placeholder="Stage name or real name"></div>' +
         '<div class="field"><label for="co-email">Email</label><input id="co-email" type="email" autocomplete="email" placeholder="you@wherever.com"></div>' +
-        '<div class="field"><label for="co-note">Anything we should know?</label><textarea id="co-note" rows="2" placeholder="Tagless file? Stem request? Mixing?" style="resize:vertical"></textarea></div>' +
+        (bundles.length ? '<div class="field"><label for="co-note">Bundle beats + any notes</label><textarea id="co-note" rows="3" placeholder="List the beats you want in your bundle, plus any other notes…" style="resize:vertical"></textarea></div>' :
+        '<div class="field"><label for="co-note">Anything we should know?</label><textarea id="co-note" rows="2" placeholder="Tagless file? Stem request? Mixing?" style="resize:vertical"></textarea></div>') +
         '<button class="btn btn--primary" style="width:100%" data-action="place-order">Review my order</button>' +
         '<p class="note" style="margin-top:14px">This is an order request, not a charge. We review it, reply with payment details, and deliver the files once it clears — no surprises.</p>' +
         "</div>" +
@@ -969,19 +1103,47 @@
 
   function buildOrder(items, total, info) {
     const lines = [];
+    const creditPacks = items.filter((it) => it.type === "credits");
+    const bundles = items.filter((it) => it.type === "bundle");
+    const beats = items.filter((it) => it.type === "beat");
+    const creditValue = cfg.creditValue || 25;
+
     lines.push("NINE63 MUSIC — BEAT ORDER REQUEST");
     lines.push("--------------------------------");
     lines.push("");
     if (info.name) lines.push("Name: " + info.name);
     lines.push("Email: " + info.email);
     lines.push("");
-    lines.push("ITEMS");
-    items.forEach((it) => {
-      lines.push("- " + it.beat.title + " (" + it.beat.key || "" + ")");
-      lines.push("  License: " + it.license.name + " — " + Utils.fmtPrice(it.license.price));
-      lines.push("  Beat link: " + location.origin + location.pathname + "#/beat/" + it.beat.slug);
-    });
-    lines.push("");
+
+    if (creditPacks.length) {
+      lines.push("CREDIT PACKS");
+      creditPacks.forEach((it) => {
+        lines.push("- " + it.pack.name + " — " + Utils.fmtPrice(it.pack.price) + " (" + it.pack.credits + " credits)");
+      });
+      lines.push("");
+    }
+
+    if (bundles.length) {
+      lines.push("BUNDLE DEALS");
+      bundles.forEach((it) => {
+        lines.push("- " + it.bundle.name + " — " + Utils.fmtPrice(it.bundle.price) + " (" + it.bundle.beats + " Basic licenses)");
+        lines.push("  List your " + it.bundle.beats + " beats below or in the notes.");
+      });
+      lines.push("");
+    }
+
+    if (beats.length) {
+      lines.push("BEATS");
+      beats.forEach((it) => {
+        var cashPrice = it.creditsUsed ? Math.max(0, it.license.price - it.creditsUsed * creditValue) : it.license.price;
+        lines.push("- " + it.beat.title + " (" + (it.beat.key || "") + ")");
+        lines.push("  License: " + it.license.name + " — " + Utils.fmtPrice(cashPrice));
+        if (it.creditsUsed) lines.push("  Credits used: " + it.creditsUsed);
+        lines.push("  Beat link: " + location.origin + location.pathname + "#/beat/" + it.beat.slug);
+      });
+      lines.push("");
+    }
+
     lines.push("Total: " + Utils.fmtPrice(total));
     if (info.note) {
       lines.push("");
@@ -1092,6 +1254,99 @@
     });
   }
 
+  /* ================= CREDITS ================= */
+
+  function renderCredits() {
+    const packs = cfg.creditPacks || [];
+    const bundles = cfg.bundles || [];
+    const cv = cfg.creditValue || 25;
+    const lc = cfg.licenseCredits || {};
+
+    var comparisonRows = cfg.licenses
+      .filter((l) => lc[l.slug] != null)
+      .map((l) => {
+        var cc = lc[l.slug];
+        var cash5 = Math.max(0, l.price - cc * cv);
+        var total5 = cash5 + 100 / 5 * cc;
+        return (
+          '<tr>' +
+          '<td>' + e(l.name) + "</td>" +
+          '<td class="text-right">' + e(Utils.fmtPrice(l.price)) + "</td>" +
+          '<td class="text-right">' + e(Utils.fmtPrice(cash5)) + " + " + cc + " cr</td>" +
+          '<td class="text-right">' + e(Utils.fmtPrice(cash5)) + " + " + cc + " cr</td>" +
+          "</tr>"
+        );
+      })
+      .join("");
+
+    return Object.assign(
+      meta("Credits & bundles", "Prepay for credits and save 17–23% on every beat. Bundle deals for bulk purchases."),
+      {
+        html:
+          '<div class="container page-head">' +
+          breadcrumb([{ label: "Home", href: "#/" }, { label: "Credits" }]) +
+          '<h1 class="display h1">Buy credits. <em>Beat the price.</em></h1>' +
+          '<p class="lede" style="max-width:62ch">Prepay for credits and apply them to any beat. Save 17–23% on every purchase. Credits work across all license tiers — the more you buy, the more you save.</p>' +
+          "</div>" +
+
+          '<section class="container section--tight">' +
+          '<h2 class="display h3" style="margin-bottom:18px">Credit Packs</h2>' +
+          '<div class="grid grid--credits">' +
+          packs.map((p) => C.creditPackCard(p)).join("") +
+          "</div>" +
+          "</section>" +
+
+          '<section class="container section--tight">' +
+          '<h2 class="display h3" style="margin-bottom:18px">How it works</h2>' +
+          '<div class="credits-how">' +
+          '<div class="credits-step"><span class="credits-step__num">1</span><h3>Buy a credit pack</h3><p>Add a credit pack to your cart. Each credit is worth $25 toward any beat.</p></div>' +
+          '<div class="credits-step"><span class="credits-step__num">2</span><h3>Pick your beats</h3><p>Browse the vault and click "Buy with credit" on any beat you like.</p></div>' +
+          '<div class="credits-step"><span class="credits-step__num">3</span><h3>Pay less</h3><p>Credits are deducted from the price. You pay only the cash remainder.</p></div>' +
+          "</div>" +
+          "</section>" +
+
+          '<section class="container section--tight">' +
+          '<h2 class="display h3" style="margin-bottom:18px">Price comparison</h2>' +
+          '<div style="overflow-x:auto">' +
+          '<table class="credits-table">' +
+          "<thead><tr><th>License</th><th class='text-right'>Normal</th><th class='text-right'>With 5 Credits</th><th class='text-right'>With 10 Credits</th></tr></thead>" +
+          "<tbody>" + comparisonRows + "</tbody>" +
+          "</table>" +
+          "</div>" +
+          "</section>" +
+
+          (bundles.length
+            ? '<section class="container section--tight">' +
+              '<h2 class="display h3" style="margin-bottom:18px">Bundle Deals</h2>' +
+              '<div class="grid grid--credits">' +
+              bundles.map((b) => C.bundleCard(b)).join("") +
+              "</div>" +
+              '<p class="note" style="margin-top:14px">Tell us which beats you want in the order notes when you check out.</p>' +
+              "</section>"
+            : "") +
+
+          '<section class="container section--tight">' +
+          "<h2 class='display h3' style='margin-bottom:18px'>Questions, answered</h2>" +
+          '<div class="faq">' +
+          faq("How do credits work?", "Buy a credit pack, then apply credits to any beat. Each credit is worth $25 — so a Basic ($30) costs just $5 + 1 credit. Credits are deducted from your balance automatically.") +
+          faq("Do credits expire?", "No. Credits stay in your cart until you use them. There's no time limit.") +
+          faq("Can I mix credits and regular purchases?", "Yes. Some beats can be bought with credits, others at full price — it's up to you. The cart handles both.") +
+          faq("What about bundles?", "Bundles are pre-set packages —3 or 5 Basic licenses at a discount. Tell us which beats you want in the order notes when you check out.") +
+          faq("Can I get a refund on unused credits?", "Contact us and we'll work it out. Credits are meant to save you money, not trap you.") +
+          "</div>" +
+          "</section>" +
+
+          '<section class="container section--tight">' +
+          '<div class="about-band" style="text-align:center">' +
+          '<h2 class="display h2" style="margin-bottom:14px">Ready to save?</h2>' +
+          '<p class="lede" style="max-width:46ch;margin:0 auto 26px">Find the beat first — credits make the licensing even better.</p>' +
+          '<a class="btn btn--primary btn--lg" href="#/beats">Find your beat</a>' +
+          "</div>" +
+          "</section>",
+      }
+    );
+  }
+
   /* ================= dispatcher ================= */
 
   function render(parts, params) {
@@ -1119,6 +1374,8 @@
         return renderCart();
       case "licenses":
         return renderLicenses();
+      case "credits":
+        return renderCredits();
       case "about":
         return renderAbout();
       case "search": {

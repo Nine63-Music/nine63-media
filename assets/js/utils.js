@@ -107,7 +107,6 @@
 
     metaLine(beat) {
       const bits = [];
-      if (beat.bpm) bits.push(beat.bpm + " BPM");
       if (beat.key) bits.push(beat.key);
       if (beat.year) bits.push(beat.year);
       return bits.join(" · ");

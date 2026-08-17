@@ -122,6 +122,7 @@
   function sync() {
     const s = Audio.state;
     const beat = Audio.currentBeat();
+    document.body.classList.toggle("has-player", !!beat);
 
     if (!beat) {
       if (root.firstChild) root.innerHTML = "";
@@ -138,7 +139,8 @@
     el.art.innerHTML = window.ACLASS.Components.imgTag(beat, null, "Artwork for " + beat.title);
     el.art.href = "#/beat/" + beat.slug;
     el.title.textContent = beat.title;
-    el.sub.textContent = Utils.genreLine(beat) + (beat.bpm ? " · " + beat.bpm + " BPM" : "");
+    var pGenres = Utils.genresOf(beat);
+    el.sub.textContent = (pGenres[0] || Utils.titleCase(beat.collection));
 
     const dur = s.duration || 0;
     const cur = s.time || 0;

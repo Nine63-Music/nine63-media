@@ -37,17 +37,17 @@
     opts = opts || {};
     const playing = Audio.state.currentId === beat.id;
     const faved = Store.isFav(beat.id);
+    const sold = beat.status === "sold";
     const collection = Utils.collectionOf(beat);
     const price = opts.price || cfg.startingPrice;
-    const subBits = [];
     const genres = Utils.genresOf(beat);
-    if (genres[0]) subBits.push(genres[0]);
-    if (beat.bpm) subBits.push(beat.bpm + " BPM");
-    if (beat.key) subBits.push(beat.key);
+    const metaBits = [];
+    if (beat.key) metaBits.push(beat.key);
 
     return (
       '<article class="card' +
-      (playing ? " is-playing" : "") +
+      (playing && !sold ? " is-playing" : "") +
+      (sold ? " is-sold" : "") +
       '" data-card-id="' +
       Utils.escapeHTML(beat.id) +
       '">' +
@@ -59,14 +59,16 @@
       '">' +
       imgTag(beat, "card__art-img", "Artwork for " + beat.title + " by " + beat.producer) +
       "</a>" +
-      '<button class="card__play" data-action="play" data-id="' +
-      Utils.escapeHTML(beat.id) +
-      '" aria-label="' +
-      (playing && Audio.state.playing ? "Pause " : "Play ") +
-      Utils.escapeHTML(beat.title) +
-      '">' +
-      icon(playing && Audio.state.playing ? "pause" : "play") +
-      "</button>" +
+      (sold
+        ? '<span class="card__sold-badge">Sold</span>'
+        : '<button class="card__play" data-action="play" data-id="' +
+          Utils.escapeHTML(beat.id) +
+          '" aria-label="' +
+          (playing && Audio.state.playing ? "Pause " : "Play ") +
+          Utils.escapeHTML(beat.title) +
+          '">' +
+          icon(playing && Audio.state.playing ? "pause" : "play") +
+          "</button>") +
       '<button class="card__fav' +
       (faved ? " is-faved" : "") +
       '" data-action="fav" data-id="' +
@@ -89,18 +91,26 @@
       '">' +
       Utils.escapeHTML(beat.title) +
       "</a>" +
-      '<div class="card__sub">' +
-      Utils.escapeHTML(subBits.join(" · ")) +
-      (collection && !genres.length ? " · " + Utils.escapeHTML(collection.displayName) : "") +
+      '<div class="card__tags">' +
+      genres.slice(0, 2).map(function (g) {
+        var gSlug = g.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
+        return '<a class="card__genre" href="#/genre/' + Utils.escapeHTML(gSlug) + '">' + Utils.escapeHTML(g) + "</a>";
+      }).join("") +
+      (collection && !genres.length ? '<span class="card__genre">' + Utils.escapeHTML(collection.displayName) + "</span>" : "") +
+      metaBits.map(function (b) {
+        return '<span class="card__meta">' + Utils.escapeHTML(b) + "</span>";
+      }).join("") +
       "</div>" +
       '<div class="card__foot">' +
-      '<span class="card__price">' +
-      Utils.escapeHTML(Utils.fmtPrice(price)) +
-      " <small>starting</small>" +
-      "</span>" +
-      '<a class="btn btn--sm btn--ghost" href="#/beat/' +
-      Utils.escapeHTML(beat.slug) +
-      '" data-action="license">License</a>' +
+      (sold
+        ? '<span class="card__price card__price--sold">Sold</span>'
+        : '<span class="card__price">' +
+          Utils.escapeHTML(Utils.fmtPrice(price)) +
+          " <small>starting</small>" +
+          "</span>" +
+          '<a class="btn btn--sm btn--ghost" href="#/beat/' +
+          Utils.escapeHTML(beat.slug) +
+          '" data-action="license">License</a>') +
       "</div>" +
       "</div>" +
       "</article>"
@@ -253,7 +263,128 @@
     return '<div class="grid ' + (opts && opts.wide ? "grid--beats-wide" : "grid--beats") + '" data-queue="' + Utils.escapeHTML(ids) + '">' + beats.map((b) => beatCard(b, opts)).join("") + "</div>";
   }
 
+  /* ---------- Credit pack card ---------- */
+  function creditPackCard(pack) {
+    const inCart = Store.creditPackHas(pack.slug);
+    const perCredit = (pack.price / pack.credits).toFixed(2).replace(/\.?0+$/, "");
+    const isPopular = pack.credits === 5;
+    return (
+      '<div class="credit-pack-card' + (isPopular ? "" : " credit-pack-card--best") + '">' +
+      '<div class="credit-pack-card__badge">' + (isPopular ? "Popular" : "Best value") + "</div>" +
+      '<h3 class="credit-pack-card__name">' + Utils.escapeHTML(pack.name) + "</h3>" +
+      '<div class="credit-pack-card__price">' + Utils.fmtPrice(pack.price) + "</div>" +
+      '<div class="credit-pack-card__per">' + Utils.fmtPrice(perCredit) + " per credit · " + Utils.fmtPrice(25) + " value each</div>" +
+      '<p class="credit-pack-card__desc">' + Utils.escapeHTML(pack.blurb) + "</p>" +
+      '<button class="btn btn--primary" data-action="add-credits" data-pack="' + Utils.escapeHTML(pack.slug) + '">' +
+      (inCart ? "In cart — add again" : "Add to cart") +
+      "</button>" +
+      "</div>"
+    );
+  }
+
+  /* ---------- Bundle card ---------- */
+  function bundleCard(bundle) {
+    const inCart = Store.bundleHas(bundle.slug);
+    const normalPrice = bundle.beats * cfg.startingPrice;
+    const savings = normalPrice - bundle.price;
+    return (
+      '<div class="bundle-card">' +
+      '<div class="bundle-card__badge">Save ' + Utils.fmtPrice(savings) + "</div>" +
+      '<h3 class="bundle-card__name">' + Utils.escapeHTML(bundle.name) + "</h3>" +
+      '<div class="bundle-card__price">' + Utils.fmtPrice(bundle.price) + "</div>" +
+      '<div class="bundle-card__per">' + bundle.beats + " Basic licenses · " + Utils.fmtPrice(normalPrice) + " normally</div>" +
+      '<p class="bundle-card__desc">' + Utils.escapeHTML(bundle.blurb) + "</p>" +
+      '<button class="btn btn--ghost" data-action="add-bundle" data-bundle="' + Utils.escapeHTML(bundle.slug) + '">' +
+      (inCart ? "In cart — add again" : "Add to cart") +
+      "</button>" +
+      "</div>"
+    );
+  }
+
+  /* ---------- Credit pricing helper for beat detail ---------- */
+  function creditPriceLine(license) {
+    var cc = (cfg.licenseCredits || {})[license.slug];
+    if (cc == null) return "";
+    var cv = cfg.creditValue || 25;
+    var cash = Math.max(0, license.price - cc * cv);
+    return (
+      '<div class="license-card__credit">' +
+      "or " + Utils.fmtPrice(cash) + " + " + cc + " credit" + (cc > 1 ? "s" : "") +
+      "</div>"
+    );
+  }
+
+  /* ---------- Savings badge ---------- */
+  function savingsBadge(amount) {
+    if (!amount || amount <= 0) return "";
+    return '<span class="savings-badge">You save ' + Utils.fmtPrice(amount) + "</span>";
+  }
+
+  /* ---------- Featured picks section ---------- */
+  function featuredPicks(beats) {
+    if (!beats || beats.length === 0) return "";
+    var hero = beats[0];
+    var rest = beats.slice(1, 5);
+    var playing = Audio.state.currentId === hero.id;
+
+    var rightCards = rest.map(function (b, i) {
+      var isPlaying = Audio.state.currentId === b.id;
+      var genres = Utils.genresOf(b);
+      var genreTags = genres.slice(0, 2).map(function (g) {
+        var gSlug = g.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
+        return '<span class="fp-card__genre">' + Utils.escapeHTML(g) + "</span>";
+      }).join("");
+      return (
+        '<a class="fp-card" href="#/beat/' + Utils.escapeHTML(b.slug) + '">' +
+        '<div class="fp-card__art">' +
+        '<img src="' + Utils.escapeHTML(Utils.artSrc(b)) + '" alt="' + Utils.escapeHTML(b.title) + '" loading="lazy" decoding="async">' +
+        '<span class="fp-card__num">' + (i + 2) + "</span>" +
+        "</div>" +
+        '<div class="fp-card__info">' +
+        '<div class="fp-card__title">' + Utils.escapeHTML(b.title) + "</div>" +
+        '<div class="fp-card__tags">' + genreTags +
+        "</div>" +
+        "</div>" +
+        '<button class="fp-card__play" data-action="play" data-id="' + Utils.escapeHTML(b.id) + '" aria-label="Play ' + Utils.escapeHTML(b.title) + '">' +
+        (isPlaying && Audio.state.playing ? icon("pause") : icon("play")) +
+        "</button>" +
+        "</a>"
+      );
+    }).join("");
+
+    var heroGenres = Utils.genresOf(hero);
+    var heroTags = heroGenres.slice(0, 3).map(function (g) {
+      return '<span class="fp-hero__genre">' + Utils.escapeHTML(g) + "</span>";
+    }).join("");
+    var heroMeta = (function() { var bits = []; if (hero.key) bits.push(hero.key); if (hero.year) bits.push(hero.year); return bits.length ? " · " + bits.join(" · ") : ""; })();
+
+    return (
+      '<div class="featured-picks">' +
+      '<div class="fp-hero">' +
+      '<a class="fp-hero__link" href="#/beat/' + Utils.escapeHTML(hero.slug) + '">' +
+      '<div class="fp-hero__art">' +
+      '<img src="' + Utils.escapeHTML(Utils.artSrc(hero)) + '" alt="Artwork for ' + Utils.escapeHTML(hero.title) + '" decoding="async">' +
+      '<div class="fp-hero__overlay"></div>' +
+      '<span class="fp-hero__badge">Featured</span>' +
+      '<button class="fp-hero__play" data-action="play" data-id="' + Utils.escapeHTML(hero.id) + '" aria-label="' + (playing ? "Pause " : "Play ") + Utils.escapeHTML(hero.title) + '">' +
+      (playing && Audio.state.playing ? icon("pause") : icon("play")) +
+      "</button>" +
+      "</div>" +
+      "</a>" +
+      '<div class="fp-hero__meta">' +
+      '<div class="fp-hero__title">' + Utils.escapeHTML(hero.title) + "</div>" +
+      '<div class="fp-hero__tags">' + heroTags + '<span class="fp-hero__meta-text">' + Utils.escapeHTML(heroMeta.replace(/^ · /, "")) + "</span></div>" +
+      '<a class="btn btn--primary btn--sm" href="#/beat/' + Utils.escapeHTML(hero.slug) + '" style="margin-top:14px">License now</a>' +
+      "</div>" +
+      "</div>" +
+      '<div class="fp-stack">' +
+      rightCards +
+      "</div>" +
+      "</div>"
+    );
+  }
+
   window.ACLASS = Object.assign(window.ACLASS || {}, {
-    Components: { Toast, beatCard, syncCard, soundTile, genreTile, moodTile, sectionHead, skeletonCards, beatsGrid, updateBadges, imgTag },
+    Components: { Toast, beatCard, syncCard, soundTile, genreTile, moodTile, sectionHead, skeletonCards, beatsGrid, updateBadges, imgTag, creditPackCard, bundleCard, creditPriceLine, savingsBadge, featuredPicks },
   });
 })();

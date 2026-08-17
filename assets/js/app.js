@@ -77,6 +77,8 @@
     const id = btn.getAttribute("data-id");
 
     if (action === "play") {
+      const beat = Utils.byId.get(id);
+      if (beat && beat.status === "sold") return;
       const grid = btn.closest("[data-queue]");
       let queue = null;
       if (grid) {
@@ -118,6 +120,68 @@
       return;
     }
 
+    if (action === "add-credits") {
+      const packSlug = btn.getAttribute("data-pack");
+      Store.addCreditPack(packSlug);
+      const pack = (cfg.creditPacks || []).find((p) => p.slug === packSlug);
+      C.Toast.show((pack ? pack.name : "Credit pack") + " added to cart");
+      btn.textContent = "In cart — added";
+      C.updateBadges();
+      return;
+    }
+
+    if (action === "remove-credits") {
+      const packSlug = btn.getAttribute("data-pack");
+      Store.removeCreditPack(packSlug);
+      C.Toast.show("Credit pack removed");
+      C.updateBadges();
+      const row = btn.closest(".cart-item");
+      if (row) row.remove();
+      if (!Store.cartCount) {
+        window.ACLASS.Router.dispatch();
+      }
+      return;
+    }
+
+    if (action === "add-bundle") {
+      const bundleSlug = btn.getAttribute("data-bundle");
+      Store.addBundle(bundleSlug);
+      const bundle = (cfg.bundles || []).find((b) => b.slug === bundleSlug);
+      C.Toast.show((bundle ? bundle.name : "Bundle") + " added to cart");
+      btn.textContent = "In cart — added";
+      C.updateBadges();
+      return;
+    }
+
+    if (action === "remove-bundle") {
+      const bundleSlug = btn.getAttribute("data-bundle");
+      Store.removeBundle(bundleSlug);
+      C.Toast.show("Bundle removed");
+      C.updateBadges();
+      const row = btn.closest(".cart-item");
+      if (row) row.remove();
+      if (!Store.cartCount) {
+        window.ACLASS.Router.dispatch();
+      }
+      return;
+    }
+
+    if (action === "buy-with-credit") {
+      const license = btn.getAttribute("data-license");
+      const creditCost = ((cfg.licenseCredits || {})[license]) || 0;
+      if (creditCost <= 0 || Store.creditsRemaining < creditCost) {
+        C.Toast.show("Not enough credits — buy a credit pack first");
+        return;
+      }
+      Store.addToCartWithCredits(id, license);
+      const beat = Utils.byId.get(id);
+      const lic = cfg.licenses.find((l) => l.slug === license);
+      C.Toast.show((beat ? beat.title + " · " : "") + (lic ? lic.name : "") + " added with " + creditCost + " credit" + (creditCost > 1 ? "s" : ""));
+      btn.textContent = "In cart — added";
+      C.updateBadges();
+      return;
+    }
+
     if (action === "tag") {
       location.hash = Utils.route("beats", { q: btn.getAttribute("data-tag") });
     }
@@ -145,10 +209,12 @@
             '<div class="search-result">' +
             '<a class="search-result__art" href="#/beat/' + e(b.slug) + '" data-art-id="' + e(b.id) + '"><img src="' + e(Utils.artSrc(b)) + '" alt="Artwork for ' + e(b.title) + '" loading="lazy"></a>' +
             '<a href="#/beat/' + e(b.slug) + '">' +
-            '<div class="search-result__title">' + e(b.title) + "</div>" +
-            '<div class="search-result__sub">' + e(Utils.genreLine(b)) + (b.bpm ? " · " + b.bpm + " BPM" : "") + "</div>" +
+            '<div class="search-result__title">' + e(b.title) + (b.status === "sold" ? ' <span class="savings-badge savings-badge--sm" style="background:var(--surface-3);color:var(--text-mute)">Sold</span>' : "") + "</div>" +
+            '<div class="search-result__sub">' + e((function() { var sg = Utils.genresOf(b); return sg[0] || ""; })()) + "</div>" +
             "</a>" +
-            '<button class="search-result__play" data-action="play" data-id="' + e(b.id) + '" aria-label="Play ' + e(b.title) + '">' + icon("play") + "</button>" +
+            (b.status === "sold"
+              ? '<span class="search-result__play" style="opacity:0.35;pointer-events:none">' + icon("play") + "</span>"
+              : '<button class="search-result__play" data-action="play" data-id="' + e(b.id) + '" aria-label="Play ' + e(b.title) + '">' + icon("play") + "</button>") +
             "</div>"
         )
         .join("") +

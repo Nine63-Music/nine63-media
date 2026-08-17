@@ -1,6 +1,9 @@
 {
   "cleanUrls": true,
   "trailingSlash": false,
+  "rewrites": [
+    { "source": "/Beats/(.*)", "destination": "https://raw.githubusercontent.com/Nine63-Music/nine63-media/main/Beats/$1" }
+  ],
   "headers": [
     {
       "source": "/assets/(.*)",
@@ -9,6 +12,13 @@
     {
       "source": "/data/(.*)",
       "headers": [{ "key": "Cache-Control", "value": "no-cache" }]
+    },
+    {
+      "source": "/Beats/(.*)",
+      "headers": [
+        { "key": "Access-Control-Allow-Origin", "value": "*" },
+        { "key": "Cache-Control", "value": "public, max-age=86400" }
+      ]
     }
   ]
 }
