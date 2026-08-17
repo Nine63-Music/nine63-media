@@ -8,6 +8,7 @@
 
   const audio = new Audio();
   audio.preload = "none";
+  audio.crossOrigin = "anonymous";
   audio.setAttribute("aria-label", "Beat player");
 
   const state = {
